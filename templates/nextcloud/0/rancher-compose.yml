@@ -45,9 +45,7 @@ services:
   nextcloud:
     scale: 1
     start_on_create: true
-    io.rancher.scheduler.affinity:host_label: host=cm
 
   mariadb:
     scale: 1
     start_on_create: true
-    io.rancher.scheduler.affinity:host_label: host=cm

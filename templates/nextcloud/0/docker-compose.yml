@@ -12,6 +12,7 @@ services:
       - mariadb
     labels:
       io.rancher.container.hostname_override: container_name
+      io.rancher.scheduler.affinity:host_label: host=cm
 
   mariadb:
     image: mariadb:10
@@ -24,4 +25,5 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASS}
     labels:
       io.rancher.container.hostname_override: container_name
+      io.rancher.scheduler.affinity:host_label: host=cm
 
