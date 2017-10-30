@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+
+  nextcloud:
+    image: nextcloud:12-apache
+    volumes:
+      - ${NEXTCLOUD_VOLUME}:/var/www/html
+    ports:
+      - ${NEXTCLOUD_PORT}:80
+    depends_on:
+      - mariadb
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+  mariadb:
+    image: mariadb:10
+    volumes:
+      - ${MARIADB_VOLUME}:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASS}
+    labels:
+      io.rancher.container.hostname_override: container_name
+
