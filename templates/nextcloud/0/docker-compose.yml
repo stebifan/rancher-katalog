@@ -6,7 +6,7 @@ services:
     image: nextcloud:12-apache
     volumes:
       - ${NEXTCLOUD_VOLUME}:/var/www/html
-      volume_driver: docker-nfs
+
     ports:
       - ${NEXTCLOUD_PORT}:80
     depends_on:
@@ -19,7 +19,7 @@ services:
     image: mariadb:10
     volumes:
       - ${MARIADB_VOLUME}:/var/lib/mysql
-      volume_driver: docker-nfs
+
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -28,4 +28,11 @@ services:
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.scheduler.affinity:host_label: host=cm
+
+  volumes:
+  ${NEXTCLOUD_VOLUME}:
+    driver: rancher-nfs
+  volumes:
+  ${MARIADB_VOLUME}:
+    driver: rancher-nfs
 
