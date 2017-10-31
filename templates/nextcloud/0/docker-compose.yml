@@ -30,8 +30,8 @@ services:
       io.rancher.scheduler.affinity:host_label: host=cm
 
   volumes:
-  ${NEXTCLOUD_VOLUME}:
-    driver: rancher-nfs
+    nextcloud:
+      driver: rancher-nfs
   volumes:
-  ${MARIADB_VOLUME}:
-    driver: rancher-nfs
+    mariadb:
+      driver: rancher-nfs
