@@ -10,6 +10,13 @@ services:
       - ${NEXTCLOUD_PORT}:80
     depends_on:
       - mariadb
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASS}
+      MYSQL_HOST: 
+    links:
+    - mariadb:db
     labels:
       io.rancher.container.hostname_override: container_name
 
@@ -24,3 +31,9 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASS}
     labels:
       io.rancher.container.hostname_override: container_name
+
+volumes:
+  ${NEXTCLOUD_VOLUME}:
+    driver: rancher-nfs
+  ${MARIADB_VOLUME}:
+    driver: rancher-nfs
