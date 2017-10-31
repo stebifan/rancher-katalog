@@ -38,3 +38,5 @@ volumes:
     driver: rancher-nfs
   mariadb:
     driver: rancher-nfs
+  nextcloud-lib:
+    driver: rancher-nfs
