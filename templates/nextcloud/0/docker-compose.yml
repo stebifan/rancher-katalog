@@ -7,7 +7,7 @@ services:
     image: nextcloud:12-apache
     volumes:
       - ${NEXTCLOUD_VOLUME}:/var/www/html
-      - root:/
+      - tmp:/tmp
     ports:
       - ${NEXTCLOUD_PORT}:80
     depends_on:
@@ -41,7 +41,7 @@ services:
 volumes:
   nextcloud:
     driver: rancher-nfs
-  root:
+  tmp:
     driver: rancher-nfs
   mariadb:
     driver: rancher-nfs
