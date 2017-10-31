@@ -3,6 +3,7 @@ version: '2'
 services:
 
   nextcloud:
+    privileged: true
     image: nextcloud:12-apache
     volumes:
       - ${NEXTCLOUD_VOLUME}:/var/www/html
