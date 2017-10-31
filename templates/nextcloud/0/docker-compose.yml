@@ -36,8 +36,8 @@ services:
     labels:
       io.rancher.container.hostname_override: container_name
 
-#volumes:
-#  nextcloud:
-#    driver: rancher-nfs
-#  mariadb:
-#    driver: rancher-nfs
+volumes:
+  nextcloud:
+    driver: rancher-nfs
+  mariadb:
+    driver: rancher-nfs
