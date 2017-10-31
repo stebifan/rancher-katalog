@@ -8,8 +8,6 @@ services:
       - ${NEXTCLOUD_VOLUME}:/var/www/html
     ports:
       - ${NEXTCLOUD_PORT}:80
-    entrypoint:
-      - /bin/true
     depends_on:
       - mariadb
     environment:
