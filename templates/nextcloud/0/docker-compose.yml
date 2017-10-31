@@ -7,7 +7,6 @@ services:
     image: nextcloud:12-apache
     volumes:
       - ${NEXTCLOUD_VOLUME}:/var/www/html
-      - ${NEXTCLOUD_VOLUME}-home:/
     ports:
       - ${NEXTCLOUD_PORT}:80
     depends_on:
