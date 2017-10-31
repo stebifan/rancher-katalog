@@ -21,6 +21,10 @@ services:
     - mariadb:db
     labels:
       io.rancher.container.hostname_override: container_name
+    stdin_open: true
+    tty: true
+    logging:
+      driver: syslog
 
   mariadb:
     image: mariadb:10
