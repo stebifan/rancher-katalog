@@ -19,7 +19,7 @@ services:
     - mariadb:db
     labels:
       io.rancher.container.hostname_override: container_name
-      io.rancher.scheduler.affinity:container_label: run.on.cm=true
+      io.rancher.scheduler.affinity:host_label: host.run=cm
     stdin_open: true
     tty: true
     logging:
@@ -36,7 +36,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASS}
     labels:
       io.rancher.container.hostname_override: container_name
-      io.rancher.scheduler.affinity:container_label: run.on.cm=true
+      io.rancher.scheduler.affinity:host_label: host.run=cm
 
 volumes:
   nextcloud:
