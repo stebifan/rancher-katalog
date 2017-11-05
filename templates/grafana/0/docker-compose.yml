@@ -1,8 +1,60 @@
-grafana:
-    image: grafana/grafana:latest
-    ports:
-        - ${http_port}:3000
+version: '2'
+volumes:
+  grafana:
+    external: true
+    driver: rancher-nfs
+  graphite-statsd:
+    external: true
+    driver: rancher-nfs
+  graphite-log:
+    external: true
+    driver: rancher-nfs
+  graphite-nginx:
+    external: true
+    driver: rancher-nfs
+  graphite-storage:
+    external: true
+    driver: rancher-nfs
+  graphite-logrotate:
+    external: true
+    driver: rancher-nfs
+  graphite-conf:
+    external: true
+    driver: rancher-nfs
+services:
+  grafana:
+    image: grafana/grafana
     environment:
-        GF_SECURITY_ADMIN_USER: ${admin_username}
-        GF_SECURITY_ADMIN_PASSWORD: ${admin_password}
-        GF_SECURITY_SECRET_KEY: ${secret_key}
+      GF_SERVER_ROOT_URL: http://grafana.hoffmann-hosting.de
+      GF_SECURITY_ADMIN_PASSWORD: password
+    stdin_open: true
+    volumes:
+    - grafana:/var/lib/grafana
+    tty: true
+    links:
+    - graphite:graphite
+    ports:
+    - 3000:3000/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  graphite:
+    image: hopsoft/graphite-statsd
+    stdin_open: true
+    volumes:
+    - graphite-conf:/opt/graphite/conf
+    - graphite-storage:/opt/graphite/storage
+    - graphite-nginx:/etc/nginx
+    - graphite-statsd:/opt/statsd
+    - graphite-logrotate:/etc/logrotate.d
+    - graphite-log:/var/log
+    tty: true
+    ports:
+    - 5001:80/tcp
+    - 5002:2003/tcp
+    - 5003:2004/tcp
+    - 5004:2023/tcp
+    - 5005:2024/tcp
+    - 5006:8125/udp
+    - 5007:8126/tcp
+    labels:
+      io.rancher.container.pull_image: always
