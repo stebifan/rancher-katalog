@@ -1,25 +1,18 @@
 version: '2'
 volumes:
   grafana:
-    external: true
     driver: rancher-nfs
   graphite-statsd:
-    external: true
     driver: rancher-nfs
   graphite-log:
-    external: true
     driver: rancher-nfs
   graphite-nginx:
-    external: true
     driver: rancher-nfs
   graphite-storage:
-    external: true
     driver: rancher-nfs
   graphite-logrotate:
-    external: true
     driver: rancher-nfs
   graphite-conf:
-    external: true
     driver: rancher-nfs
 services:
   grafana:
