@@ -49,7 +49,7 @@ services:
       AZURE_RESOURCE_GROUP: ''
       AZURE_SUBSCRIPTION_ID: ''
       AZURE_TENANT_ID: ''
-      CERT_NAME: test
+      CERT_NAME: ${DOMAIN}
       CLOUDFLARE_EMAIL: ''
       CLOUDFLARE_KEY: ''
       DNSIMPLE_EMAIL: ''
