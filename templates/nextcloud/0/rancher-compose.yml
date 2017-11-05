@@ -29,16 +29,6 @@ catalog:
       label: MySQL Pass
       required: true
       type: password
-    - variable: NEXTCLOUD_VOLUME
-      default: nextcloud
-      label: Nextcloud Volume Name
-      required: true
-      type: string
-    - variable: MARIADB_VOLUME
-      default: mariadb
-      label: Mariadb Volume Name
-      required: true
-      type: string
 
 services:
 

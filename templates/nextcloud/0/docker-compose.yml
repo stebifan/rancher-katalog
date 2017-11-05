@@ -19,7 +19,7 @@ services:
     - mariadb:db
     labels:
       io.rancher.container.hostname_override: container_name
-  #    io.rancher.scheduler.affinity:host_label: host.run=cm
+      io.rancher.scheduler.affinity:host_label: need=storage
     stdin_open: true
     tty: true
     logging:
@@ -28,7 +28,7 @@ services:
   mariadb:
     image: mariadb
     volumes:
-      - ${MARIADB_VOLUME}:/var/lib/mysql
+      - mariadb:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -40,6 +40,6 @@ services:
 
 volumes:
   nextcloud:
-    driver: rancher-nfs
+    driver: local
   mariadb:
-    driver: rancher-nfs
+    driver: local
