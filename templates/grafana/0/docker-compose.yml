@@ -37,6 +37,7 @@ services:
     - 3000:3000/tcp
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: need=cpu
   graphite:
     image: hopsoft/graphite-statsd
     stdin_open: true
@@ -58,3 +59,4 @@ services:
     - 5007:8126/tcp
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: need=cpu
