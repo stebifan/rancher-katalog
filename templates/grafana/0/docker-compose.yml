@@ -1,19 +1,19 @@
 version: '2'
 volumes:
   grafana:
-    driver: rancher-nfs
+    driver: local
   graphite-statsd:
-    driver: rancher-nfs
+    driver: local
   graphite-log:
-    driver: rancher-nfs
+    driver: local
   graphite-nginx:
-    driver: rancher-nfs
+    driver: local
   graphite-storage:
-    driver: rancher-nfs
+    driver: local
   graphite-logrotate:
-    driver: rancher-nfs
+    driver: local
   graphite-conf:
-    driver: rancher-nfs
+    driver: local
 services:
   grafana:
     image: grafana/grafana
@@ -30,7 +30,6 @@ services:
     - 3000:3000/tcp
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:host_label: need=cpu
   graphite:
     image: hopsoft/graphite-statsd
     stdin_open: true
@@ -52,5 +51,4 @@ services:
     - 5007:8126/tcp
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:host_label: need=cpu
       
