@@ -1,4 +1,11 @@
 version: '2'
+
+catalog:
+
+  name: Grafana + Graphite
+  version: 0.0.1
+  description: Grafana Server
+
 services:
   grafana:
     scale: 1
