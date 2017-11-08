@@ -29,10 +29,6 @@ catalog:
       label: MySQL Pass
       required: true
       type: password
-    - variable: DOMAIN
-      label: Domain Name (CERT)
-      required: true
-      type: string
 
 services:
 
@@ -41,9 +37,5 @@ services:
     start_on_create: true
 
   mariadb:
-    scale: 1
-    start_on_create: true
-
-  letsencrypt:
     scale: 1
     start_on_create: true
