@@ -11,7 +11,7 @@ catalog:
       required: true
       type: password
 services:
-  idoit:
+  i-doit:
     scale: 1
     start_on_create: true
   mysql:
