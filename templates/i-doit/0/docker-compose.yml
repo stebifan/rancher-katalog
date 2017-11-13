@@ -21,6 +21,4 @@ services:
       MYSQL_USER: idoit
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-    - idoit-mysql:/var/lib/mysql
-    labels:
-      
+    - idoit-mysql:/var/lib/mysql      
