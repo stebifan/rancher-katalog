@@ -6,7 +6,7 @@ volumes:
     driver: local
 services:
   i-doit:
-    image: docker pull hoffmannhosting/i-doit
+    image: hoffmannhosting/i-doit
     volumes:
     - idoit:/var/www
     links:
