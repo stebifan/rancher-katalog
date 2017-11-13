@@ -1,0 +1,22 @@
+version: '2'
+
+catalog:
+
+  name: gitea
+  version: 0.0.1
+  description: Gitea - Git Server with Web GUI
+  questions:
+    - variable: DB_PASSWORD
+      label: Database Password
+      required: true
+      type: password
+
+services:
+
+  gitea:
+    scale: 1
+    start_on_create: true
+
+  database:
+    scale: 1
+    start_on_create: true

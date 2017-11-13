@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+
+  gitea:
+    image: gitea/gitea:latest
+    volumes:
+      - gitea:/data
+    ports:
+      - 22
+      - 3000
+    depends_on:
+      - database
+    links:
+    - database:db
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+  database:
+    image: postgres:alpine
+    volumes:
+      - gitea-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    labels:
+      io.rancher.container.hostname_override: container_name
+  #    io.rancher.scheduler.affinity:host_label: host.run=cm
+volumes:
+  nextcloud:
+    driver: local
+  mariadb:
+    driver: local
