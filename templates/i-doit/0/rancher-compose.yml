@@ -7,9 +7,9 @@ catalog:
   description: I-Doit Server
   questions:
     - variable: MYSQL_PASSWORD
-    label: MySQL password
-    required: true
-    type: password
+      label: MySQL password
+      required: true
+      type: password
 services:
   idoit:
     scale: 1
