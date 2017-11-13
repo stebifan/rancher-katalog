@@ -6,7 +6,7 @@ volumes:
     driver: local
 services:
   i-doit:
-    image: hoffmannhosting/i-doit
+    image: hoffmannhosting/i-doit:latest
     volumes:
     - idoit:/var/www
     links:
@@ -14,7 +14,7 @@ services:
     ports:
     - 80
   mysql:
-    image: mysql
+    image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: idoit
