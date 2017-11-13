@@ -5,7 +5,11 @@ catalog:
   name: I-Doit
   version: 0.0.1
   description: I-Doit Server
-
+  questions:
+    - variable: MYSQL_PASSWORD
+    label: MySQL password
+    required: true
+    type: password
 services:
   idoit:
     scale: 1
