@@ -13,6 +13,8 @@ services:
     - mysql:db
     ports:
     - 80
+    labels:
+      io.rancher.container.pull_image: always
   mysql:
     image: mysql:latest
     environment:
