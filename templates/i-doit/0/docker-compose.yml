@@ -19,8 +19,5 @@ services:
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: idoit
-      MYSQL_USER: idoit
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
     - idoit-mysql:/var/lib/mysql      
