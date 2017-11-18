@@ -41,6 +41,7 @@ services:
         hostname: nextcloud.hoffmann-hosting.de
       certs:
       - nextcloud.hoffmann-hosting.de
+      default_cert: nextcloud.hoffmann-hosting.de
   mariadb:
     scale: 1
     start_on_create: true
