@@ -6,11 +6,6 @@ catalog:
   version: 0.0.1
   description: Nextcloud - Enterprise File Sync and Share
   questions:
-    - variable: NEXTCLOUD_PORT
-      label: Port
-      default: 8010
-      required: true
-      type: int
     - variable: MYSQL_ROOT_PASS
       label: MySQL root password
       required: true
