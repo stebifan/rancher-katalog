@@ -29,6 +29,11 @@ catalog:
       label: MySQL Pass
       required: true
       type: password
+    - variable: DOMAIN
+      default: your-domain.de
+      label: Domain
+      required: true
+      type: string
 
 services:
 
