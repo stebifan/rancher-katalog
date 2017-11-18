@@ -39,7 +39,13 @@ services:
       port_rules:
       - target_port: 80
         hostname: nextcloud.hoffmann-hosting.de
-
   mariadb:
     scale: 1
     start_on_create: true
+  letsencrypt:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: nextcloud.hoffmann-hosting.de
