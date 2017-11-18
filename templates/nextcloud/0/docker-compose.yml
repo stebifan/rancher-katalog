@@ -17,6 +17,7 @@ services:
     - mariadb:db
     labels:
       io.rancher.container.hostname_override: container_name
+      service: https
  #     io.rancher.scheduler.affinity:host_label: need=storage
     stdin_open: true
     tty: true
