@@ -32,7 +32,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
       MYSQL_DATABASE: nextcloud
-      MYSQL_USER: nnextcloud
+      MYSQL_USER: nextcloud
       MYSQL_PASSWORD: ${MYSQL_PASS}
     labels:
       io.rancher.container.hostname_override: container_name
