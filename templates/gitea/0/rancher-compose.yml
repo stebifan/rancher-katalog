@@ -10,6 +10,11 @@ catalog:
       label: Database Password
       required: true
       type: password
+    - variable: DOMAIN
+      default: your-domain.de
+      label: Domain
+      required: true
+      type: string
 
 services:
 
@@ -20,3 +25,11 @@ services:
   database:
     scale: 1
     start_on_create: true
+
+  letsencrypt:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: ${DOMAIN}
