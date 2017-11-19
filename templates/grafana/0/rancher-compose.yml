@@ -5,7 +5,13 @@ catalog:
   name: Grafana + Graphite
   version: 0.0.1
   description: Grafana Server
-
+  questions:
+    - variable: DOMAIN
+      default: your-domain.de
+      label: Domain
+      required: true
+      type: string
+      
 services:
   grafana:
     scale: 1
