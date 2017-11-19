@@ -8,13 +8,13 @@ services:
       - gitea:/data
     ports:
       - 22
-      - 3000
     depends_on:
       - database
     links:
     - database:db
     labels:
       io.rancher.container.hostname_override: container_name
+      service: grafana
 
   database:
     image: postgres:alpine
