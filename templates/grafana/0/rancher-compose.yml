@@ -11,7 +11,7 @@ catalog:
       label: Domain
       required: true
       type: string
-
+      
 services:
   grafana:
     scale: 1
@@ -19,6 +19,7 @@ services:
     lb_config:
       port_rules:
       - target_port: 3000
+        hostname: ${DOMAIN}
   graphite:
     scale: 1
     start_on_create: true
@@ -28,3 +29,4 @@ services:
     lb_config:
       port_rules:
       - target_port: 80
+        hostname: ${DOMAIN}

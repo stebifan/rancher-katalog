@@ -51,7 +51,7 @@ services:
     labels:
       io.rancher.container.pull_image: always
 
- letsencrypt:
+  letsencrypt:
     image: janeczku/rancher-letsencrypt:v0.5.0
     environment:
       API_VERSION: Production
