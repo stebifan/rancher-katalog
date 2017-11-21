@@ -2,7 +2,7 @@ version: '2'
 
 services:
   dokuwiki:
-    image: 'bitnami/dokuwiki:latest'
+    image: bitnami/dokuwiki:latest
     volumes:
       - dokuwiki_data:/bitnami
     environment:
