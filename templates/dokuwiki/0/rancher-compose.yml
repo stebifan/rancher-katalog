@@ -1,36 +1,51 @@
-.catalog:
-  name: Dokuwiki
-  version: 2016-06-26a
-  description: |
-    DokuWiki is a simple to use and highly versatile Open Source wiki software that doesn't require a database.
-  minimum_rancher_version: v0.56.0
-  maintainer: "Tim Kopplow <tim@arctium.io>"
-  uuid: dokuwiki-0
+version: '2'
+
+catalog:
+
+  name: DokuWiki
+  version: 1
+  description: DokuWiki - Text based Wiki
   questions:
-    - variable: "dokuwiki_hostname"
-      description: "Dokuwiki hostname"
-      label: "Hostname:"
+    - variable: DOKUWIKI_USERNAME
+      label: SuperUser Username
+      default: admin
       required: true
-      default: "dw.example.com"
-      type: "string"
-    - variable: "http_port"
-      description: "HTTP port to expose on host. Will be used to bind TCP"
-      label: "HTTP port:"
+      type: string 
+    - variable: DOKUWIKI_PASSWORD
+      label: SuperUser password
       required: true
-      default: 80
-      type: "string"
+      type: password 
+    - variable: DOKUWIKI_WIKI_NAME
+      label: DokuWiki Name
+      required: string
+      type: password 
+    - variable: DOMAIN
+      label: DokuWiki Domain
+      required: true
+      type: string 
 
-dokuwiki-server:
-  scale: 1
-  retain_ip: true
-  health_check:
-    port: 80
-    interval: 30000
-    unhealthy_threshold: 3
-    strategy: recreate
-    response_timeout: 2000
-    healthy_threshold: 2
+services:
+  letsencrypt:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: ${DOMAIN}
 
-dokuwiki-data:
-  scale: 1
-  retain_ip: true
+  dokuwiki:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: ${DOMAIN}
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 80
+      unhealthy_threshold: 10
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: recreate
+      reinitializing_timeout: 60000

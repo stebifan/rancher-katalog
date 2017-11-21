@@ -32,7 +32,7 @@ services:
     lb_config:
       port_rules:
       - target_port: 80
-        hostname: nextcloud.hoffmann-hosting.de
+        hostname: ${DOMAIN}
     health_check:
       response_timeout: 2000
       healthy_threshold: 2
@@ -53,4 +53,4 @@ services:
     lb_config:
       port_rules:
       - target_port: 80
-        hostname: nextcloud.hoffmann-hosting.de
+        hostname: ${DOMAIN}
