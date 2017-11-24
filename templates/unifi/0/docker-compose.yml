@@ -1,18 +1,22 @@
 version: '2'
 
 services:
-  
-  dokuwiki:
-    image: bitnami/dokuwiki:latest
+
+  unifi:
+    image: jacobalberty/unifi
     volumes:
-      - dokuwiki_data:/bitnami
+      - unifi:/unifi
+    ports:
+      - 3478:3478
+      - 6789:6789
+      - 10001:10001/udp
     environment:
-      DOKUWIKI_USERNAME: ${DOKUWIKI_USERNAME}
-      DOKUWIKI_PASSWORD: ${DOKUWIKI_PASSWORD}
-      DOKUWIKI_WIKI_NAME: ${DOKUWIKI_WIKI_NAME}
+      TZ: Europe/Berlin
     labels:
       io.rancher.container.hostname_override: container_name
-      service: https
+      service: unifi, https
+    logging:
+      driver: syslog
 
   letsencrypt:
     image: janeczku/rancher-letsencrypt:v0.5.0
@@ -56,7 +60,7 @@ services:
       service: letsencrypt
 
 volumes:
-  dokuwiki_data:
+  unifi:
     driver: local
   zertifikate:
     driver: local

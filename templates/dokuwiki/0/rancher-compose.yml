@@ -17,6 +17,7 @@ catalog:
       type: password 
     - variable: DOKUWIKI_WIKI_NAME
       label: DokuWiki Name
+      default: Name
       required: string
       type: password 
     - variable: DOMAIN

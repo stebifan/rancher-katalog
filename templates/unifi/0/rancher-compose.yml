@@ -1,0 +1,42 @@
+version: '2'
+
+catalog:
+
+  name: Unifi
+  version: 5.6.24
+  description: Unifi Controller
+  questions:
+    - variable: DOMAIN
+      default: your-domain.de
+      label: Domain
+      required: true
+      type: string
+
+services:
+
+  unifi:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 8080
+        hostname: ${DOMAIN}
+      - target_port: 8443
+        hostname: ${DOMAIN}
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 8080
+      unhealthy_threshold: 10
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: recreate
+      reinitializing_timeout: 60000
+
+  letsencrypt:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: ${DOMAIN}
