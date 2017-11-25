@@ -3,7 +3,7 @@ version: '2'
 services:
 
   nextcloud:
-    image: hoffmannhosting/nextcloud-docker:12.0.1
+    image: hoffmannhosting/nextcloud-docker:12.0.3
     volumes:
       - nextcloud:/var/www/html
     depends_on:
