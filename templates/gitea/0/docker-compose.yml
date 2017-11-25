@@ -67,9 +67,9 @@ services:
       io.rancher.container.create_agent: 'true'
       service: letsencrypt
 volumes:
-  nextcloud:
-    driver: local
-  database:
-    driver: local
+  gitea:
+    driver: rancher-nfs
+  gitea-db:
+    driver: rancher-nfs
   zertifikate:
     driver: local
