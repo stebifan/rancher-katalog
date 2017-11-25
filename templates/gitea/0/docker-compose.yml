@@ -69,7 +69,7 @@ services:
 volumes:
   gitea:
     driver: rancher-nfs
-  database:
+  gitea-db:
     driver: rancher-nfs
   zertifikate:
     driver: local
