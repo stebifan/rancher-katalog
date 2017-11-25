@@ -80,8 +80,8 @@ services:
 
 volumes:
   nextcloud:
-    driver: local
+    driver: rancher-nfs
   mariadb:
-    driver: local
+    driver: rancher-nfs
   zertifikate:
     driver: local
