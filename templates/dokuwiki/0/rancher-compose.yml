@@ -3,7 +3,7 @@ version: '2'
 catalog:
 
   name: DokuWiki
-  version: 1
+  version: 1.0
   description: DokuWiki - Text based Wiki
   questions:
     - variable: DOKUWIKI_USERNAME
