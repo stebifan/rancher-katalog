@@ -2,7 +2,7 @@ version: '2'
 
 catalog:
 
-  name: DokuWiki
+  name: dokuwiki
   version: 1.0
   description: DokuWiki - Text based Wiki
   questions:
