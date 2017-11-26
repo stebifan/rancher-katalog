@@ -27,10 +27,6 @@ services:
     image: influxdb
     volumes:
       - influxdb:/data
-    environment:
-      PRE_CREATE_DB: cadvisor
-      ADMIN_USER: admin
-      INFLUXDB_INIT_PWD: ${INFLUXDB_PASSWORD}
     ports:
       - 8083:8083
       - 8086:8086
