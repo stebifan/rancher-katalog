@@ -24,7 +24,7 @@ services:
       driver: syslog
 
   influxdb:
-    image: influxdb
+    image: tutum/influxdb
     volumes:
       - influxdb:/data
     ports:
