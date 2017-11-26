@@ -59,8 +59,51 @@ services:
       io.rancher.container.pull_image: always
       service: https
 
+  letsencrypt:
+    image: janeczku/rancher-letsencrypt:v0.5.0
+    environment:
+      API_VERSION: Production
+      AWS_ACCESS_KEY: ''
+      AWS_SECRET_KEY: ''
+      AZURE_CLIENT_ID: ''
+      AZURE_CLIENT_SECRET: ''
+      AZURE_RESOURCE_GROUP: ''
+      AZURE_SUBSCRIPTION_ID: ''
+      AZURE_TENANT_ID: ''
+      CERT_NAME: ${DOMAIN}
+      CLOUDFLARE_EMAIL: ''
+      CLOUDFLARE_KEY: ''
+      DNSIMPLE_EMAIL: ''
+      DNSIMPLE_KEY: ''
+      DNS_RESOLVERS: 8.8.8.8:53,8.8.4.4:53
+      DOMAINS: ${DOMAIN}
+      DO_ACCESS_TOKEN: ''
+      DYN_CUSTOMER_NAME: ''
+      DYN_PASSWORD: ''
+      DYN_USER_NAME: ''
+      EMAIL: s.hoffmann@hoffmann-hosting.de
+      EULA: 'Yes'
+      GANDI_API_KEY: ''
+      OVH_APPLICATION_KEY: ''
+      OVH_APPLICATION_SECRET: ''
+      OVH_CONSUMER_KEY: ''
+      PROVIDER: HTTP
+      PUBLIC_KEY_TYPE: RSA-2048
+      RENEWAL_PERIOD_DAYS: '20'
+      RENEWAL_TIME: '12'
+      VULTR_API_KEY: ''
+    volumes:
+    - /var/lib/rancher:/var/lib/rancher
+    - zertifikate:/etc/letsencrypt
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'
+      io.rancher.container.start_once: "true"
+      service: letsencrypt
+
 volumes:
   grafana:
     driver: rancher-nfs
   influxdb:
     driver: rancher-nfs
+

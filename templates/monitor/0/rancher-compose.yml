@@ -37,3 +37,7 @@ services:
       port_rules:
       - target_port: 3000
         hostname: ${DOMAIN}
+
+  letsencrypt:
+    scale: 1
+    start_on_create: true
