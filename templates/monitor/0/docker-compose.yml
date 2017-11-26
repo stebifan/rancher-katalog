@@ -38,13 +38,7 @@ services:
   grafana:
     image: grafana/grafana
     environment:
-      GF_SERVER_ROOT_URL: ${DOMAIN}
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
-      INFLUXDB_HOST: localhost
-      INFLUXDB_PORT: 8086
-      INFLUXDB_NAME: cadvisor
-      INFLUXDB_USER: admin
-      INFLUXDB_PASS: ${INFLUXDB_PASSWORD}
     stdin_open: true
     volumes:
     - grafana:/var/lib/grafana
@@ -58,6 +52,6 @@ services:
 
 volumes:
   grafana:
-    driver: local
+    driver: rancher-nfs
   influxdb:
-    driver: local
+    driver: rancher-nfs
