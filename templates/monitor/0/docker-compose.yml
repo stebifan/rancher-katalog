@@ -58,6 +58,6 @@ services:
 
 volumes:
   grafana:
-    driver: rancher-nfs
+    driver: local
   influxdb:
-    driver: rancher-nfs
+    driver: local
