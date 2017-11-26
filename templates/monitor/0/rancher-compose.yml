@@ -23,20 +23,16 @@ catalog:
 services:
 
   influxdb:
+   scale: 1
+   start_on_create: true
+
+  influxdb:
     scale: 1
     start_on_create: true
-    lb_config:
-      port_rules:
-      - target_port: 8080
-        hostname: ${DOMAIN}
 
   grafana:
     scale: 1
     start_on_create: true
-    lb_config:
-      port_rules:
-      - target_port: 3000
-        hostname: ${DOMAIN}
 
   letsencrypt:
     scale: 1
