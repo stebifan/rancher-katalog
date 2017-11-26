@@ -14,11 +14,12 @@ services:
       - influxdb
       - grafana
     environment:
-      INFLUXDB_HOST: db
+      INFLUXDB_HOST: localhost
       INFLUXDB_PORT: 8086
       INFLUXDB_NAME: cadvisor
       INFLUXDB_USER: admin
       INFLUXDB_PASS: ${INFLUXDB_PASSWORD}
+    command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=db:8086
     links:
       - influxdb:db
     ports:
