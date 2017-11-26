@@ -13,6 +13,12 @@ services:
     depends_on:
       - influxdb
       - grafana
+    environment:
+      INFLUXDB_HOST: db
+      INFLUXDB_PORT: 8086
+      INFLUXDB_NAME: cadvisor
+      INFLUXDB_USER: admin
+      INFLUXDB_PASS: ${INFLUXDB_PASSWORD}
     links:
       - influxdb:db
     ports:
