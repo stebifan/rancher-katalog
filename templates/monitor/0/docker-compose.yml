@@ -25,6 +25,7 @@ services:
 #      - 8080:8080
     labels:
       io.rancher.container.hostname_override: container_name
+      io.rancher.scheduler.global: 'true'
     logging:
       driver: syslog
 
