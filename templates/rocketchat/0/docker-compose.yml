@@ -8,9 +8,10 @@ services:
       - rocketchat-uploads:/app/uploads
     depends_on:
       - mongodb
-#    environment:
+    environment:
+      ROOT_URL: https://${DOMAIN}
     links:
-    - mongodb:db
+      - mongodb:db
     labels:
       io.rancher.container.hostname_override: container_name
       service: grafana
