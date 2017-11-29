@@ -43,15 +43,6 @@ services:
       port_rules:
       - target_port: 9001
         hostname: ${DOMAIN}
-    health_check:
-      response_timeout: 2000
-      healthy_threshold: 2
-      port: 9001
-      unhealthy_threshold: 20
-      initializing_timeout: 60000
-      interval: 2000
-      strategy: none
-      reinitializing_timeout: 60000
 
   mysql:
     scale: 1
