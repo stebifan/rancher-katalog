@@ -1,0 +1,6 @@
+name: etherpad
+description: Etherpad
+version: 1.6.0
+category: Colaboration
+projectURL: https://github.com/stebifan/etherpad-lite
+
