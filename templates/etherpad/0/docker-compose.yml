@@ -3,7 +3,7 @@ version: '2'
 services:
 
   etherpad:
-    image: hoffmannhosting/etherpad-lite:1.6.0
+    image: hoffmannhosting/etherpad-lite:1.6.1
 #   volumes:
 #      - nextcloud:/var/www/html
     depends_on:
