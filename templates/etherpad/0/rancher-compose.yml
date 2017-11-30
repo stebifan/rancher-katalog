@@ -3,7 +3,7 @@ version: '2'
 catalog:
 
   name: etherpad
-  version: 1.6.0
+  version: 1.6.1
   description: Etherpad
   questions:
     - variable: MYSQL_ROOT_PASS
