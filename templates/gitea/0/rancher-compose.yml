@@ -21,6 +21,10 @@ services:
   gitea:
     scale: 1
     start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 3000
+        hostname: ${DOMAIN}
 
   database:
     scale: 1
