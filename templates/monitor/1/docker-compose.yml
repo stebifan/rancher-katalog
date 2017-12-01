@@ -2,29 +2,63 @@ version: '2'
 
 services:
 
-  gitea:
-    image: gitea/gitea:latest
+  cadvisor:
+    image: google/cadvisor:latest
     volumes:
-      - gitea:/data
-    ports:
-      - 22
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
     depends_on:
-      - database
-    links:
-    - database:db
-    labels:
-      io.rancher.container.hostname_override: container_name
-      service: 3000
-
-  database:
-    image: postgres:alpine
-    volumes:
-      - gitea-db:/var/lib/postgresql/data
+      - influxdb
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      INFLUXDB_HOST: localhost
+      INFLUXDB_PORT: 8086
+      INFLUXDB_NAME: cadvisor
+      INFLUXDB_USER: admin
+      INFLUXDB_PASS: ${INFLUXDB_PASSWORD}
+    command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=db:8086
+    links:
+      - influxdb:db
+#    ports:
+#      - 8080:8080
     labels:
       io.rancher.container.hostname_override: container_name
-  #    io.rancher.scheduler.affinity:host_label: host.run=cm
+      io.rancher.scheduler.global: 'true'
+    logging:
+      driver: syslog
+
+  influxdb:
+    image: tutum/influxdb
+    volumes:
+      - influxdb:/data
+    environment:
+      PRE_CREATE_DB: cadvisor   
+      ADMIN_USER: admin   
+      INFLUXDB_INIT_PWD: ${INFLUXDB_PASSWORD}
+#    ports:
+#      - 8083:8083
+#      - 8086:8086
+#      - 8090:8090
+#      - 8099:8099
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+  grafana:
+    image: grafana/grafana
+    environment:
+      GF_SERVER_ROOT_URL: https://${DOMAIN}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+    volumes:
+    - grafana:/var/lib/grafana
+    links:
+    - influxdb:db
+#    ports:
+#    - 3000:3000
+    labels:
+      io.rancher.container.pull_image: always
+      service: 3000
 
   letsencrypt:
     image: janeczku/rancher-letsencrypt:v0.5.0
@@ -65,11 +99,12 @@ services:
     labels:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
+      io.rancher.container.start_once: "true"
       service: letsencrypt
+
 volumes:
-  gitea:
+  grafana:
     driver: rancher-nfs
-  gitea-db:
+  influxdb:
     driver: rancher-nfs
-  zertifikate:
-    driver: local
+
