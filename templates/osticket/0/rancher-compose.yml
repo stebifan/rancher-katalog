@@ -1,0 +1,114 @@
+version: '2'
+
+catalog:
+
+  name: osticket
+  version: 1
+  description: OsTicket - Ticketsystem
+  questions:
+    - variable: MYSQL_ROOT_PASS
+      label: MySQL root password
+      required: true
+      type: password
+    - variable: MYSQL_PASS
+      label: MySQL Pass
+      required: true
+      type: password
+    - variable: SMTP_HOST
+      default: your-domain.de
+      label: SMTP Host
+      required: true
+      type: string
+    - variable: SMTP_PORT
+      default: 587
+      label: SMTP Port
+      required: true
+      type: string
+    - variable: SMTP_FROM
+      default: mail@mail.de
+      label: SMTP From
+      required: true
+      type: string
+    - variable: SMTP_TLS
+      default: 1
+      label: SMTP TLS (1 or 0)
+      required: true
+      type: string
+    - variable: SMTP_USER
+      default: USER
+      label: SMTP Username
+      required: true
+      type: string
+    - variable: SMTP_PASSWORD
+      label: SMTP Password
+      required: true
+      type: password
+    - variable: INSTALL_SECRET
+      label: Random Secret
+      required: true
+      type: password
+    - variable: INSTALL_NAME
+      default: Support
+      label: Installation Name
+      required: true
+      type: string
+    - variable: ADMIN_FIRSTNAME
+      default: Max
+      label: Admin First Name
+      required: true
+      type: string
+    - variable: ADMIN_LASTNAME
+      default: Mustermann
+      label: Admin Last Name
+      required: true
+      type: string
+    - variable: ADMIN_EMAIL
+      default: mail@mail.de
+      label: Admin E-Mail
+      required: true
+      type: string
+    - variable: ADMIN_USERNAME
+      default: admin
+      label: Admin Username
+      required: true
+      type: string
+    - variable: ADMIN_PASSWORD
+      label: Admin Password
+      required: true
+      type: password
+    - variable: DOMAIN
+      default: your-domain.de
+      label: Domain
+      required: true
+      type: string
+
+services:
+
+  osticket:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: ${DOMAIN}
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 80
+      unhealthy_threshold: 20
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: none
+      reinitializing_timeout: 60000
+
+  mariadb:
+    scale: 1
+    start_on_create: true
+
+  letsencrypt:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: ${DOMAIN}
