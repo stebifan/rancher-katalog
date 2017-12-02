@@ -32,8 +32,6 @@ services:
     labels:
       io.rancher.container.hostname_override: container_name
       service: https
-    logging:
-      driver: syslog
 
   mariadb:
     image: mariadb
