@@ -1,0 +1,4 @@
+name: "Grafana"
+description: "Visualization dashboard"
+version: "1.1"
+category: Monitoring
