@@ -13,7 +13,7 @@ services:
     volumes:
     - grafana:/var/lib/grafana
     links:
-    - mariadb:mariadb
+    - grahite:graphite
     labels:
       io.rancher.container.pull_image: always
       service: 3000
