@@ -42,10 +42,13 @@ services:
       strategy: recreate
       reinitializing_timeout: 60000
 
-  mariadb:
+  graphite:
+    scale: 1
+    start_on_create: true
+  letsencrypt:
     scale: 1
     start_on_create: true
     lb_config:
       port_rules:
-      - target_port: 3306
+      - target_port: 80
         hostname: ${DOMAIN}
