@@ -15,6 +15,14 @@ catalog:
       label: Grafana Password
       required: true
       type: password
+    - variable: MYSQL_ROOT_PASS
+      label: Mariadb Password
+      required: true
+      type: password
+    - variable: MYSQL_PASS
+      label: Mariadb Password for Database fhem
+      required: true
+      type: password
 
 services:
   grafana:
@@ -33,14 +41,11 @@ services:
       interval: 2000
       strategy: recreate
       reinitializing_timeout: 60000
-      
-  graphite:
-    scale: 1
-    start_on_create: true
-  letsencrypt:
+
+  mariadb:
     scale: 1
     start_on_create: true
     lb_config:
       port_rules:
-      - target_port: 80
+      - target_port: 3306
         hostname: ${DOMAIN}
