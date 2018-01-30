@@ -1,4 +1,4 @@
-name: "Grafana"
+name: "Grafana-Local"
 description: "Visualization dashboard"
 version: "1.1"
 category: Monitoring
