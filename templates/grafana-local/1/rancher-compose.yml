@@ -44,13 +44,3 @@ services:
       port_rules:
       - target_port: 80
         hostname: ${DOMAIN}
-
-    health_check:
-      response_timeout: 2000
-      healthy_threshold: 2
-      port: 80
-      unhealthy_threshold: 10
-      initializing_timeout: 60000
-      interval: 2000
-      strategy: recreate
-      reinitializing_timeout: 60000
