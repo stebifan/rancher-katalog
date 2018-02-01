@@ -13,30 +13,26 @@ services:
     volumes:
     - grafana:/var/lib/grafana
     links:
-    - graphite:graphite
+    - influxdb:influxdb
     labels:
       io.rancher.container.pull_image: always
       service: 3000
 
-  graphite:
-    image: hopsoft/graphite-statsd
+  influxdb:
+    image: tutum/influxdb
     volumes:
-    - graphite-conf:/opt/graphite/conf
-    - graphite-storage:/opt/graphite/storage
-    - graphite-nginx:/etc/nginx
-    - graphite-statsd:/opt/statsd
-    - graphite-logrotate:/etc/logrotate.d
-    - graphite-log:/var/log
+      - influxdb:/data
+    environment:
+      PRE_CREATE_DB: fhem   
+      ADMIN_USER: admin   
+      INFLUXDB_INIT_PWD: ${INFLUXDB_PASSWORD}
     ports:
-    - 80/tcp
-    - 2003/tcp
-    - 2004/tcp
-    - 2023/tcp
-    - 2024/tcp
-    - 8125/udp
-    - 8126/tcp
+      - 8083:8083
+      - 8086:8086
+      - 8090:8090
+      - 8099:8099
     labels:
-      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
   
   letsencrypt:
     image: janeczku/rancher-letsencrypt:v0.5.0

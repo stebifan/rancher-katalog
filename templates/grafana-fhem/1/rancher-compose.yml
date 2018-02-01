@@ -2,7 +2,7 @@ version: '2'
 
 catalog:
 
-  name: Grafana + Graphite
+  name: Grafana + Influxdb
   version: 1.1
   description: Grafana Server
   questions:
@@ -15,12 +15,8 @@ catalog:
       label: Grafana Password
       required: true
       type: password
-    - variable: MYSQL_ROOT_PASS
-      label: Mariadb Password
-      required: true
-      type: password
-    - variable: MYSQL_PASS
-      label: Mariadb Password for Database fhem
+    - variable: INFLUXDB_PASSWORD
+      label: Influxdb Password
       required: true
       type: password
 
@@ -42,9 +38,10 @@ services:
       strategy: recreate
       reinitializing_timeout: 60000
 
-  graphite:
+  influxdb:
     scale: 1
     start_on_create: true
+
   letsencrypt:
     scale: 1
     start_on_create: true
