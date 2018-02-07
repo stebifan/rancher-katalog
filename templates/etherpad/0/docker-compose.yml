@@ -78,6 +78,6 @@ services:
 
 volumes:
   mysql:
-    driver: rancher-nfs
+    driver: local
   zertifikate:
     driver: local

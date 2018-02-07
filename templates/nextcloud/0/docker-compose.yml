@@ -79,8 +79,8 @@ services:
 
 volumes:
   nextcloud:
-    driver: rancher-nfs
+    driver: local
   mariadb:
-    driver: rancher-nfs
+    driver: local
   zertifikate:
     driver: local

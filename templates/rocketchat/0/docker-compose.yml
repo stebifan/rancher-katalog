@@ -69,6 +69,6 @@ services:
 
 volumes:
   rocketchat-uploads:
-    driver: rancher-nfs
+    driver: local
   mongodb:
-    driver: rancher-nfs
+    driver: local

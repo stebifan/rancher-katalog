@@ -11,7 +11,7 @@ services:
     depends_on:
       - database
     links:
-    - database:db
+      - database:db
     labels:
       io.rancher.container.hostname_override: container_name
       service: 3000
@@ -68,8 +68,8 @@ services:
       service: letsencrypt
 volumes:
   gitea:
-    driver: rancher-nfs
+    driver: local
   gitea-db:
-    driver: rancher-nfs
+    driver: local
   zertifikate:
     driver: local

@@ -1,19 +1,19 @@
 version: '2'
 volumes:
   grafana:
-    driver: rancher-nfs
+    driver: local
   graphite-statsd:
-    driver: rancher-nfs
+    driver: local
   graphite-log:
-    driver: rancher-nfs
+    driver: local
   graphite-nginx:
-    driver: rancher-nfs
+    driver: local
   graphite-storage:
-    driver: rancher-nfs
+    driver: local
   graphite-logrotate:
-    driver: rancher-nfs
+    driver: local
   graphite-conf:
-    driver: rancher-nfs
+    driver: local
 services:
   grafana:
     image: grafana/grafana
