@@ -22,6 +22,10 @@ catalog:
 
 services:
 
+  cadvisor:
+   scale: 1
+   start_on_create: true
+
   influxdb:
    scale: 1
    start_on_create: true
