@@ -39,7 +39,7 @@ services:
     - graphite-log:/var/log
     ports:
     - 80/tcp
-    - 2003/tcp
+    - 2003:2003/tcp
     - 2004/tcp
     - 2023/tcp
     - 2024/tcp
