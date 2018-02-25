@@ -14,7 +14,7 @@ services:
       - mongodb:db
     labels:
       io.rancher.container.hostname_override: container_name
-      service: grafana
+      service: 3000
     logging:
       driver: syslog
 
