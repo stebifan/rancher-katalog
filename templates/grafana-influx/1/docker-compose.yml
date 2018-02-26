@@ -1,9 +1,9 @@
 version: '2'
 volumes:
   grafana:
-    driver: local
+    driver: rancher-nfs
   mariadb:
-    driver: local
+    driver: rancher-nfs
 services:
   grafana:
     image: grafana/grafana
