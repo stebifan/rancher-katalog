@@ -2,7 +2,7 @@ version: '2'
 volumes:
   grafana:
     driver: rancher-nfs
-  mariadb:
+  influxdb:
     driver: rancher-nfs
 services:
   grafana:
