@@ -7,7 +7,7 @@ services:
     volumes:
       - gitea:/data
     ports:
-      - 22
+      - 2222
     depends_on:
       - database
     links:
@@ -15,6 +15,7 @@ services:
     labels:
       io.rancher.container.hostname_override: container_name
       service: 3000
+      service: gitea
 
   database:
     image: postgres:alpine
