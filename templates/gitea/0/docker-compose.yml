@@ -7,7 +7,7 @@ services:
     volumes:
       - gitea:/data
     ports:
-      - 2222
+      - 2222:22
     depends_on:
       - database
     links:
