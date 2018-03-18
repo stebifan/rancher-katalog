@@ -3,7 +3,7 @@ version: '2'
 services:
 
   nextcloud:
-    image: nextcloud:13.0.1
+    image: nextcloud
     volumes:
       - nextcloud:/var/www/html
     depends_on:

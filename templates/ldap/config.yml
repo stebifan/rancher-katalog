@@ -1,0 +1,6 @@
+name: openLDAP + phpLDAPadmin
+description: LDAP Server
+version: 1
+category: Auth
+projectURL: none
+
