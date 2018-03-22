@@ -3,11 +3,11 @@ version: '2'
 services:
 
   gitea:
-    image: gitea/gitea:latest
+    image: gitea/gitea:1.4
     volumes:
       - gitea:/data
     ports:
-      - 2222:22
+      - ${SSH_PORT}:22
     depends_on:
       - database
     links:

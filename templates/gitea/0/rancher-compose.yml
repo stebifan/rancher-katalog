@@ -3,7 +3,7 @@ version: '2'
 catalog:
 
   name: gitea
-  version: 0.0.1
+  version: 1.4
   description: Gitea - Git Server with Web GUI
   questions:
     - variable: DB_PASSWORD
@@ -13,6 +13,11 @@ catalog:
     - variable: DOMAIN
       default: your-domain.de
       label: Domain
+      required: true
+      type: string
+    - variable: SSH_PORT
+      default: 2222
+      label: SSH Port
       required: true
       type: string
 
