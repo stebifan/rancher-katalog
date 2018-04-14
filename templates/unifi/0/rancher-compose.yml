@@ -17,14 +17,6 @@ services:
   unifi:
     scale: 1
     start_on_create: true
-    lb_config:
-      port_rules:
-      - target_port: 8080
-        hostname: ${DOMAIN}
-      - target_port: 8443
-        hostname: ${DOMAIN}
-      - target_port: 8843
-        hostname: ${DOMAIN}
 
   letsencrypt:
     scale: 1
