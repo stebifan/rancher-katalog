@@ -8,6 +8,10 @@ services:
       - unifi:/unifi
     ports:
       - 6789:6789
+      - 8080:8080
+      - 8443:8443
+      - 8843:8843
+      - 3478:3478
     environment:
       TZ: Europe/Berlin
     labels:
