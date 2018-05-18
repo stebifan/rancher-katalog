@@ -2,23 +2,45 @@ version: '2'
 
 services:
 
-  unifi:
-    image: jacobalberty/unifi:5.7.20
+  nextcloud:
+    image: nextcloud:13.0.1
     volumes:
-      - unifi:/unifi
-    ports:
-      - 6789:6789
-      - 8080:8080
-      - 8443:8443
-      - 8843:8843
-      - 3478:3478
+      - nextcloud:/var/www/html
+    depends_on:
+      - mariadb
+      - letsencrypt
     environment:
-      TZ: Europe/Berlin
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: ${MYSQL_PASS}
+      MYSQL_HOST: db
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
+    links:
+    - mariadb:db
     labels:
       io.rancher.container.hostname_override: container_name
-      service: unifi
+      https: yes
     logging:
       driver: syslog
+
+  mariadb:
+    image: mariadb
+    volumes:
+      - mariadb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: ${MYSQL_PASS}
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+  redirect-https:
+    image: hoffmannhosting/docker-nginx-https-redirect
+    labels:
+      io.rancher.container.hostname_override: container_name
+      http: yes
 
   letsencrypt:
     image: janeczku/rancher-letsencrypt:v0.5.0
@@ -62,7 +84,9 @@ services:
       service: letsencrypt
 
 volumes:
-  unifi:
+  nextcloud:
+    driver: rancher-nfs
+  mariadb:
     driver: rancher-nfs
   zertifikate:
     driver: local
