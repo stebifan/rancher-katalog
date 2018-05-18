@@ -16,7 +16,7 @@ services:
     - influxdb:influxdb
     labels:
       io.rancher.container.pull_image: always
-      service: 3000
+      grafana: yes
 
   influxdb:
     image: tutum/influxdb
@@ -38,7 +38,7 @@ services:
     image: hoffmannhosting/docker-nginx-https-redirect
     labels:
       io.rancher.container.hostname_override: container_name
-      service: http
+      http: yes
   
   letsencrypt:
     image: janeczku/rancher-letsencrypt:v0.5.0

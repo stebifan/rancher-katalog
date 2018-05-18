@@ -1,6 +1,0 @@
-name: unifi
-description: Unifi Wifi Controller
-version: 5.7.20
-category: Wifi
-projectURL: https://hub.docker.com/r/jacobalberty/unifi/
-

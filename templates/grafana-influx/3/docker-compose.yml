@@ -1,50 +1,45 @@
 version: '2'
-
+volumes:
+  grafana:
+    driver: rancher-nfs
+  influxdb:
+    driver: rancher-nfs
 services:
-
-  osticket:
-    image: campbellsoftwaresolutions/osticket
-    volumes:
-      - osticket:/data
-    depends_on:
-      - mariadb
-      - letsencrypt
+  grafana:
+    image: grafana/grafana
     environment:
-      MYSQL_HOST: db
-      MYSQL_PASSWORD: ${MYSQL_PASS}
-      MYSQL_DATABASE: osticket
-      MYSQL_USER: osticket
-      SMTP_HOST: ${SMTP_HOST}
-      SMTP_PORT: ${SMTP_PORT}
-      SMTP_FROM: ${SMTP_FROM}
-      SMTP_TLS: ${SMTP_TLS}
-      SMTP_USER: ${SMTP_USER}
-      SMTP_PASSWORD: ${SMTP_PASSWORD}
-      INSTALL_SECRET: ${INSTALL_SECRET}
-      INSTALL_NAME: ${INSTALL_NAME}
-      ADMIN_FIRSTNAME: ${ADMIN_FIRSTNAME}
-      ADMIN_LASTNAME: ${ADMIN_LASTNAME}
-      ADMIN_EMAIL: ${ADMIN_EMAIL}
-      ADMIN_USERNAME: ${ADMIN_USERNAME}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      GF_SERVER_ROOT_URL: https://${DOMAIN}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+    volumes:
+    - grafana:/var/lib/grafana
     links:
-    - mariadb:db
+    - influxdb:influxdb
     labels:
-      io.rancher.container.hostname_override: container_name
-      service: https
+      io.rancher.container.pull_image: always
+      grafana: yes
 
-  mariadb:
-    image: mariadb
+  influxdb:
+    image: tutum/influxdb
     volumes:
-      - mariadb:/var/lib/mysql
+      - influxdb:/data
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
-      MYSQL_DATABASE: osticket
-      MYSQL_USER: osticket
-      MYSQL_PASSWORD: ${MYSQL_PASS}
+      PRE_CREATE_DB: fhem   
+      ADMIN_USER: admin   
+      INFLUXDB_INIT_PWD: ${INFLUXDB_PASSWORD}
+    ports:
+      - 8083:8083
+      - 8086:8086
+      - 8090:8090
+      - 8099:8099
     labels:
       io.rancher.container.hostname_override: container_name
 
+  redirect-https:
+    image: hoffmannhosting/docker-nginx-https-redirect
+    labels:
+      io.rancher.container.hostname_override: container_name
+      http: yes
+  
   letsencrypt:
     image: janeczku/rancher-letsencrypt:v0.5.0
     environment:
@@ -85,11 +80,4 @@ services:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
       service: letsencrypt
-
-volumes:
-  osticket:
-    driver: rancher-nfs
-  mariadb:
-    driver: rancher-nfs
-  zertifikate:
-    driver: local
+      

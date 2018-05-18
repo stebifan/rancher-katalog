@@ -2,39 +2,64 @@ version: '2'
 
 services:
 
-  nextcloud:
-    image: nextcloud
+  cadvisor:
+    image: google/cadvisor:latest
     volumes:
-      - nextcloud:/var/www/html
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
     depends_on:
-      - mariadb
-      - letsencrypt
+      - influxdb
     environment:
-      MYSQL_DATABASE: nextcloud
-      MYSQL_USER: nextcloud
-      MYSQL_PASSWORD: ${MYSQL_PASS}
-      MYSQL_HOST: db
-      NEXTCLOUD_ADMIN_USER: admin
-      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
+      INFLUXDB_HOST: localhost
+      INFLUXDB_PORT: 8086
+      INFLUXDB_NAME: cadvisor
+      INFLUXDB_USER: admin
+      INFLUXDB_PASS: ${INFLUXDB_PASSWORD}
+    command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=db:8086
     links:
-    - mariadb:db
+      - influxdb:db
+#    ports:
+#      - 8080:8080
     labels:
       io.rancher.container.hostname_override: container_name
-      service: https
+      io.rancher.scheduler.global: 'true'
+      io.rancher.scheduler.affinity:host_label: global=yes
     logging:
       driver: syslog
 
-  mariadb:
-    image: mariadb
+  influxdb:
+    image: tutum/influxdb
     volumes:
-      - mariadb:/var/lib/mysql
+      - influxdb:/data
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
-      MYSQL_DATABASE: nextcloud
-      MYSQL_USER: nextcloud
-      MYSQL_PASSWORD: ${MYSQL_PASS}
+      PRE_CREATE_DB: cadvisor   
+      ADMIN_USER: admin   
+      INFLUXDB_INIT_PWD: ${INFLUXDB_PASSWORD}
+#    ports:
+#      - 8083:8083
+#      - 8086:8086
+#      - 8090:8090
+#      - 8099:8099
     labels:
       io.rancher.container.hostname_override: container_name
+
+  grafana:
+    image: grafana/grafana
+    environment:
+      GF_SERVER_ROOT_URL: https://${DOMAIN}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+    volumes:
+    - grafana:/var/lib/grafana
+    links:
+    - influxdb:db
+#    ports:
+#    - 3000:3000
+    labels:
+      io.rancher.container.pull_image: always
+      service: 3000
 
   letsencrypt:
     image: janeczku/rancher-letsencrypt:v0.5.0
@@ -75,12 +100,12 @@ services:
     labels:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
+      io.rancher.container.start_once: "true"
       service: letsencrypt
 
 volumes:
-  nextcloud:
+  grafana:
     driver: rancher-nfs
-  mariadb:
+  influxdb:
     driver: rancher-nfs
-  zertifikate:
-    driver: local
+
