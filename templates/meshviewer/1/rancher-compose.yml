@@ -1,0 +1,45 @@
+version: '2'
+
+catalog:
+
+  name: meshviewer
+  version: 2
+  description: Meshviewer - a Freifunk Visualisation
+  questions:
+    - variable: DOMAIN
+      default: map.freifunk-troisdorf.de
+      label: Domain
+      required: true
+      type: string
+      
+services:
+
+  map:
+    scale: 1
+    start_on_create: true
+
+  nginx:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: ${DOMAIN}
+
+  redirect-https:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: ${DOMAIN}
+      - target_port: 80
+        hostname: ${GRAFANA_DOMAIN}
+
+  letsencrypt-map:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: ${DOMAIN}
