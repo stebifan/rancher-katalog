@@ -50,7 +50,7 @@ services:
     - influxdb:db
     labels:
       io.rancher.container.pull_image: always
-      grafana=true
+      grafana: true
 
   letsencrypt:
     image: janeczku/rancher-letsencrypt:v0.5.0
