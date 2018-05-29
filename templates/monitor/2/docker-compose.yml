@@ -21,8 +21,6 @@ services:
     command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=db:8086
     links:
       - influxdb:db
-#    ports:
-#      - 8080:8080
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.scheduler.global: 'true'
@@ -38,11 +36,6 @@ services:
       PRE_CREATE_DB: cadvisor   
       ADMIN_USER: admin   
       INFLUXDB_INIT_PWD: ${INFLUXDB_PASSWORD}
-#    ports:
-#      - 8083:8083
-#      - 8086:8086
-#      - 8090:8090
-#      - 8099:8099
     labels:
       io.rancher.container.hostname_override: container_name
 
@@ -55,11 +48,9 @@ services:
     - grafana:/var/lib/grafana
     links:
     - influxdb:db
-#    ports:
-#    - 3000:3000
     labels:
       io.rancher.container.pull_image: always
-      service: 3000
+      grafana=true
 
   letsencrypt:
     image: janeczku/rancher-letsencrypt:v0.5.0
