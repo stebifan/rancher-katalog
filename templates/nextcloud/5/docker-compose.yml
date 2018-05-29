@@ -30,9 +30,13 @@ services:
     links:
       - nextcloud:app
     volumes_from:
+      - nextcloud:/var/www/html:ro
+    depends_on:
       - nextcloud
     restart: always
-
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
   mariadb:
     image: mariadb
     volumes:
