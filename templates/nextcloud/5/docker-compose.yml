@@ -3,7 +3,7 @@ version: '2'
 services:
 
   nextcloud:
-    image: nextcloud:13.0.1
+    image: nextcloud:fpm
     volumes:
       - nextcloud:/var/www/html
     depends_on:
@@ -20,9 +20,18 @@ services:
     - mariadb:db
     labels:
       io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
       https: yes
     logging:
       driver: syslog
+
+  web:
+    image: hoffmannhosting/nc-hoffmann-hosting-nginx
+    links:
+      - nextcloud:app
+    volumes_from:
+      - nextcloud
+    restart: always
 
   mariadb:
     image: mariadb
@@ -87,6 +96,6 @@ volumes:
   nextcloud:
     driver: rancher-nfs
   mariadb:
-    driver: local
+    driver: rancher-nfs
   zertifikate:
     driver: local

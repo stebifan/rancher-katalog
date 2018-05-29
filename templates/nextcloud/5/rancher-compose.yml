@@ -3,7 +3,7 @@ version: '2'
 catalog:
 
   name: nextcloud
-  version: 13.0.1-sql-local
+  version: 13.0.2-fpm
   description: Nextcloud - Enterprise File Sync and Share
   questions:
     - variable: MYSQL_ROOT_PASS
