@@ -6,7 +6,7 @@ catalog:
   version: 13.0.2-fpm-postgres
   description: Nextcloud - Enterprise File Sync and Share
   questions:
-    - variable: POSTGRES_PASSWORD
+    - variable: NC_POSTGRES_PASSWORD
       label: MySQL root password
       required: true
       type: password
