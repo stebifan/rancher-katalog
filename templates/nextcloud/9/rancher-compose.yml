@@ -7,7 +7,7 @@ catalog:
   description: Nextcloud - Enterprise File Sync and Share
   questions:
     - variable: NC_POSTGRES_PASSWORD
-      label: MySQL root password
+      label: PostreSQL password
       required: true
       type: password
     - variable: NEXTCLOUD_ADMIN_PASSWORD
