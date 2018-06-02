@@ -3,7 +3,7 @@ version: '2'
 services:
 
   nextcloud:
-    image: nextcloud:13.0.2-fpm
+    image: hoffmannhosting/nc-hoffmann-hosting
     volumes:
       - nextcloud:/var/www/html
     depends_on:
@@ -12,10 +12,11 @@ services:
     environment:
       POSTGRES_DB: nextcloud
       POSTGRES_USER: nextcloud
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      NC_POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_HOST: db
       NEXTCLOUD_ADMIN_USER: admin
       NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
+      DOMAIN: ${DOMAIN}
     links:
     - db:db
     labels:
