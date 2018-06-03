@@ -3,7 +3,7 @@ version: '2'
 services:
 
   nextcloud:
-    image: hoffmannhosting/nc-hoffmann-hosting
+    build: https://github.com/stebifan/nc-hoffmann-hosting
     volumes:
       - nextcloud:/var/www/html
     depends_on:
