@@ -19,6 +19,12 @@ catalog:
       label: Domain
       required: true
       type: string
+    - variable: THEME
+      default: demo
+      label: Theme (demo, hoffmann, tst)
+      required: true
+      type: string
+
 
 services:
 
