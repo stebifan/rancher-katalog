@@ -18,6 +18,10 @@ services:
   openkm:
     scale: 1
     start_on_create: true
+  lb_config:
+    port_rules:
+    - target_port: 8080
+      hostname: ${DOMAIN}
 
   redirect-https:
     scale: 1
