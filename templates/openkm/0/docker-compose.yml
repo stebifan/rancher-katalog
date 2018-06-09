@@ -3,7 +3,7 @@ version: '2'
 services:
 
   openkm:
-    build: openkm/openkm
+    image: openkm/openkm
     volumes:
       - openkm:/opt/openkm
     labels:
