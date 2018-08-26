@@ -3,15 +3,11 @@ version: '2'
 catalog:
 
   name: nextcloud
-  version: 12.0.1
+  version: 13.0.5
   description: Nextcloud - Enterprise File Sync and Share
   questions:
-    - variable: MYSQL_ROOT_PASS
-      label: MySQL root password
-      required: true
-      type: password
-    - variable: MYSQL_PASS
-      label: MySQL Pass
+    - variable: DB_PASSWORD
+      label: Database password
       required: true
       type: password
     - variable: NEXTCLOUD_ADMIN_PASSWORD
@@ -23,10 +19,41 @@ catalog:
       label: Domain
       required: true
       type: string
+    - variable: SINGLE_USER
+      label: Activate Single User Mode
+      required: true
+      type: boolean
+    - variable: SINGLE_USER_NAME
+      default: max
+      label: Username of User
+      required: false
+      type: string
+    - variable: SINGLE_USER_FULL_NAME
+      default: Max Mustermann
+      label: Name of User
+      required: false
+      type: string
+    - variable: SINGLE_USER_QUOTA
+      default: 1GB
+      label: User Quota
+      required: false
+      type: string
+    - variable: OC_PASS
+      label: User Password
+      required: false
+      type: password
 
 services:
 
   nextcloud:
+    scale: 1
+    start_on_create: true
+
+  mariadb:
+    scale: 1
+    start_on_create: true
+
+  redirect-https:
     scale: 1
     start_on_create: true
     lb_config:
@@ -34,9 +61,13 @@ services:
       - target_port: 80
         hostname: ${DOMAIN}
 
-  mariadb:
+  web:
     scale: 1
     start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: ${DOMAIN} 
 
   letsencrypt:
     scale: 1
