@@ -7,7 +7,7 @@ services:
     volumes:
       - nextcloud:/var/www/html
     depends_on:
-      - mariadb
+      - db
     environment:
       DB_DRIVER: mysql
       NC_DB_PASSWORD: ${DB_PASSWORD}
@@ -20,7 +20,7 @@ services:
       SINGLE_USER_QUOTA: ${SINGLE_USER_QUOTA}
       OC_PASS: ${OC_PASS}
     links:
-    - mariadb:db
+    - db:db
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
