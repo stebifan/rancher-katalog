@@ -19,6 +19,7 @@ services:
       grafana: yes
       rap.host: ${DOMAIN}
       rap.le_host: ${DOMAIN}
+      rap.port: 3000
     logging:
       driver: json-file
 
