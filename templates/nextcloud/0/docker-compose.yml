@@ -19,7 +19,6 @@ services:
       SINGLE_USER_FULL_NAME: ${SINGLE_USER_FULL_NAME}
       SINGLE_USER_QUOTA: ${SINGLE_USER_QUOTA}
       OC_PASS: ${OC_PASS}
-      ENCRYPTION: no
     links:
     - db:db
     labels:
