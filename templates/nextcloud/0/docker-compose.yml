@@ -41,7 +41,7 @@ services:
       rap.le_host: ${DOMAIN}
 
   db:
-    image: mysql
+    image: mariadb:10.3
     volumes:
       - mariadb:/var/lib/mysql
     environment:
