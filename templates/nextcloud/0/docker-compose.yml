@@ -3,23 +3,20 @@ version: '2'
 services:
 
   nextcloud:
-    build: https://github.com/stebifan/nc-hoffmann-hosting.git#14.0.3
+    image: nextcloud:14.0.3-fpm
     volumes:
       - nextcloud:/var/www/html
     depends_on:
       - db
     environment:
       DB_DRIVER: mysql
-      NC_DB_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: nextcloud
+      MYSQL_DATABASE: nextcloud
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_HOST: db
       NEXTCLOUD_ADMIN_USER: admin
       NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
       DOMAIN: ${DOMAIN}
-      SINGLE_USER: ${SINGLE_USER}
-      SINGLE_USER_NAME: ${SINGLE_USER_NAME}
-      SINGLE_USER_FULL_NAME: ${SINGLE_USER_FULL_NAME}
-      SINGLE_USER_QUOTA: ${SINGLE_USER_QUOTA}
-      OC_PASS: ${OC_PASS}
-      ENCRYPTION: true
     links:
     - db:db
     labels:
