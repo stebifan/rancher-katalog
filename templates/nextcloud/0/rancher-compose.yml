@@ -19,29 +19,6 @@ catalog:
       label: Domain
       required: true
       type: string
-    - variable: SINGLE_USER
-      label: Activate Single User Mode
-      required: true
-      type: boolean
-    - variable: SINGLE_USER_NAME
-      default: max
-      label: Username of User
-      required: false
-      type: string
-    - variable: SINGLE_USER_FULL_NAME
-      default: Max Mustermann
-      label: Name of User
-      required: false
-      type: string
-    - variable: SINGLE_USER_QUOTA
-      default: 1GB
-      label: User Quota
-      required: false
-      type: string
-    - variable: OC_PASS
-      label: User Password
-      required: false
-      type: password
 
 services:
 
