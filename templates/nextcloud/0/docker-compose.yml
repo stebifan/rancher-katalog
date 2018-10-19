@@ -3,20 +3,19 @@ version: '2'
 services:
 
   nextcloud:
-    image: nextcloud:14.0.3-fpm
+    image: nextcloud:14.0.2-fpm
     volumes:
       - nextcloud:/var/www/html
     depends_on:
       - db
     environment:
-      DB_DRIVER: mysql
       MYSQL_USER: nextcloud
       MYSQL_DATABASE: nextcloud
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_HOST: db
       NEXTCLOUD_ADMIN_USER: admin
       NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
-      DOMAIN: ${DOMAIN}
+      NEXTCLOUD_TRUSTED_DOMAINS: ${DOMAIN}
     links:
     - db:db
     labels:
