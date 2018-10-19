@@ -3,7 +3,7 @@ version: '2'
 catalog:
 
   name: nextcloud
-  version: 14.0.3
+  version: 14.0.2
   description: Nextcloud - Enterprise File Sync and Share
   questions:
     - variable: DB_PASSWORD
