@@ -40,7 +40,7 @@ services:
       rap.le_host: ${DOMAIN}
 
   db:
-    image: mariadb
+    image: mariadb:10
     volumes:
       - db:/var/lib/mysql
     environment:
