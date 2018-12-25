@@ -3,7 +3,7 @@ version: '2'
 services:
 
   netbox:
-    build: https://github.com/stebifan/docker-netbox
+    build: https://github.com/stebifan/docker-netbox.git
     volumes:
       - netbox:/usr/src/netbox
     depends_on:
