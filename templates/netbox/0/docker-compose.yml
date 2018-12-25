@@ -27,15 +27,17 @@ services:
 
   db:
     image: postgres:9.5
-        environment:
-          POSTGRES_USER: netbox
-          POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    environment:
+      POSTGRES_USER: netbox
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - database:/var/lib/postgres/
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
 
 volumes:
-  nextcloud:
+  netbox:
     driver: rancher-nfs
-  db:
+  database:
     driver: rancher-nfs
