@@ -1,0 +1,27 @@
+version: '2'
+
+catalog:
+
+  name: netbox
+  version: 2.4.5
+  description: Netbox
+  questions:
+    - variable: DATABASE_PASSWORD
+      label: Database password
+      required: true
+      type: password
+    - variable: DOMAIN
+      default: your-domain.de
+      label: Domain
+      required: true
+      type: string
+
+services:
+
+  netbox:
+    scale: 1
+    start_on_create: true
+
+  db:
+    scale: 1
+    start_on_create: true

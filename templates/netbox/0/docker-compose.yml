@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+
+  netbox:
+    build: https://github.com/stebifan/docker-netbox
+    volumes:
+      - netbox:/usr/src/netbox
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_NAME: netbox
+      DB_USER: netbox
+      DB_PASS: ${DATABASE_PASSWORD}
+      SECRET_KEY: 615916726553723046906469739172691887764906576950226158101409
+    links:
+    - db:db
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      rap.host: ${DOMAIN}
+      rap.le_host: ${DOMAIN}
+      rap.port: 8000
+    logging:
+      driver: json-file
+
+  db:
+    image: postgres:9.5
+        environment:
+          POSTGRES_USER: netbox
+          POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+
+volumes:
+  nextcloud:
+    driver: rancher-nfs
+  db:
+    driver: rancher-nfs
