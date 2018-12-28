@@ -59,10 +59,6 @@ catalog:
       label: Napalm Passwort
       required: false
       type: password
-    - variable: REDIS_PASSWORD
-      label: Redis Passwort
-      required: true
-      type: password
     - variable: SECRET_KEY
       label: Secret Key (min. 50 Zeichen)
       required: true

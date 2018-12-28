@@ -30,7 +30,7 @@ services:
       NAPALM_TIMEOUT: 10
       MAX_PAGE_SIZE: 0
       REDIS_HOST: redis
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PASSWORD: Grh6fklsd
       SECRET_KEY: ${SECRET_KEY}
       SUPERUSER_NAME: ${SUPERUSER_NAME}
       SUPERUSER_EMAIL: ${SUPERUSER_EMAIL}
@@ -75,9 +75,9 @@ services:
     command:
     - sh
     - -c # this is to evaluate the $REDIS_PASSWORD from the env
-    - redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} ## $$ because of docker-compose
+    - redis-server --appendonly yes --requirepass Grh6fklsd ## $$ because of docker-compose
     environment:
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PASSWORD: Grh6fklsd
     volumes:
     - netbox-redis-data:/data
 
