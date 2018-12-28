@@ -58,5 +58,3 @@ volumes:
     driver: rancher-nfs
   database:
     driver: rancher-nfs
-  redis:
-    driver: rancher-nfs
