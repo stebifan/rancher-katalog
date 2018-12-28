@@ -31,33 +31,33 @@ catalog:
         - false
     - variable: EMAIL_SERVER
       label: E-Mail Server Hostname
-      required: false
+      required: true
       type: string
     - variable: EMAIL_PORT
       default: 25
       label: E-Mail Server Port
-      required: false
+      required: true
       type: string
     - variable: EMAIL_USERNAME
       default: user
       label: E-Mail Server User
-      required: false
+      required: true
       type: string
     - variable: EMAIL_PASSWORD
       label: E-Mail Server Password
-      required: false
+      required: true
       type: password
     - variable: EMAIL_FROM
       label: E-Mail Absender
-      required: false
+      required: true
       type: string
     - variable: NAPALM_USERNAME
       label: Napalm User
-      required: false
+      required: true
       type: string
     - variable: NAPALM_PASSWORD
       label: Napalm Passwort
-      required: false
+      required: true
       type: password
     - variable: SECRET_KEY
       label: Secret Key (min. 50 Zeichen)
