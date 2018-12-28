@@ -54,7 +54,7 @@ services:
       io.rancher.container.pull_image: always
       rap.host: ${DOMAIN}
       rap.le_host: ${DOMAIN}
-      rap.port: 8000
+      rap.port: 8080
 
   db:
     image: postgres:9.5
