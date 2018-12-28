@@ -7,7 +7,7 @@ catalog:
   description: Netbox
   questions:
     - variable: DATABASE_PASSWORD
-      label: Database password
+      label: Datenbank Passwort
       required: true
       type: password
     - variable: DOMAIN
@@ -16,12 +16,75 @@ catalog:
       required: true
       type: string
     - variable: LOGIN_REQUIRED
-      label: LOGIN REQUIRED
+      label: Login erforderlich
       description: |
       type: enum
       options: # List of options if using type of `enum`
         - true
         - false
+    - variable: PREFER_IPV4
+      label: IPv4 bevorzugen
+      description: |
+      type: enum
+      options: # List of options if using type of `enum`
+        - true
+        - false
+    - variable: EMAIL_SERVER
+      label: E-Mail Server Hostname
+      required: false
+      type: string
+    - variable: EMAIL_PORT
+      default: 25
+      label: E-Mail Server Port
+      required: false
+      type: string
+    - variable: EMAIL_USERNAME
+      default: user
+      label: E-Mail Server User
+      required: false
+      type: string
+    - variable: EMAIL_PASSWORD
+      label: E-Mail Server Password
+      required: false
+      type: password
+    - variable: EMAIL_FROM
+      label: E-Mail Absender
+      required: false
+      type: string
+    - variable: NAPALM_USERNAME
+      label: Napalm User
+      required: false
+      type: string
+    - variable: NAPALM_PASSWORD
+      label: Napalm Passwort
+      required: false
+      type: password
+    - variable: REDIS_PASSWORD
+      label: Redis Passwort
+      required: true
+      type: password
+    - variable: SECRET_KEY
+      label: Secret Key (min. 50 Zeichen)
+      required: true
+      type: string
+    - variable: SUPERUSER_NAME
+      label: Superuser Name
+      required: true
+      type: string
+    - variable: SUPERUSER_EMAIL
+      label: Superuser E-Mail
+      required: true
+      type: string
+    - variable: SUPERUSER_PASSWORD
+      label: Superuser Passwort
+      required: true
+      type: password
+    - variable: SUPERUSER_API_TOKEN
+      label: Superuser API Token
+      default: 0123456789abcdef0123456789abcdef01234567
+      required: true
+      type: string
+
 
 services:
 
@@ -34,5 +97,9 @@ services:
     start_on_create: true
 
   nginx:
+    scale: 1
+    start_on_create: true
+
+  redis:
     scale: 1
     start_on_create: true

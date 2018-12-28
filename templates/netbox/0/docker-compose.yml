@@ -12,29 +12,31 @@ services:
     depends_on:
       - db
     environment:
+      LOGIN_REQUIRED: ${LOGIN_REQUIRED}
+      PREFER_IPV4: ${PREFER_IPV4}
       DB_NAME: netbox
       DB_USER: netbox
       DB_PASSWORD: ${DATABASE_PASSWORD}
       DB_HOST: db
-      EMAIL_SERVER: localhost
-      EMAIL_PORT: 25
-      EMAIL_USERNAME: netbox
-      EMAIL_PASSWORD: fkweropftj9034
+      EMAIL_SERVER: ${EMAIL_SERVER}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USERNAME: ${EMAIL_USERNAME}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
       EMAIL_TIMEOUT: 5
-      EMAIL_FROM: netbox@bar.com
+      EMAIL_FROM: ${EMAIL_FROM}
       MEDIA_ROOT: /opt/netbox/netbox/media
-      NAPALM_USERNAME:
-      NAPALM_PASSWORD:
+      NAPALM_USERNAME: ${NAPALM_USERNAME}
+      NAPALM_PASSWORD: ${NAPALM_PASSWORD}
       NAPALM_TIMEOUT: 10
       MAX_PAGE_SIZE: 0
-      REDIS_HOST: 
-      REDIS_PASSWORD: 
-      SECRET_KEY: r8OwDznj!!dci#P9ghmRfdu1Ysxm0AiPeDCQhKE+N_rClfWNj
-      SUPERUSER_NAME: admin
-      SUPERUSER_EMAIL: admin@example.com
-      SUPERUSER_PASSWORD: admin
-      SUPERUSER_API_TOKEN: 0123456789abcdef0123456789abcdef01234567
-      WEBHOOKS_ENABLED: false
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      SECRET_KEY: ${SECRET_KEY}
+      SUPERUSER_NAME: ${SUPERUSER_NAME}
+      SUPERUSER_EMAIL: ${SUPERUSER_EMAIL}
+      SUPERUSER_PASSWORD: ${SUPERUSER_PASSWORD}
+      SUPERUSER_API_TOKEN: ${SUPERUSER_API_TOKEN}
+      WEBHOOKS_ENABLED: true
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
@@ -68,6 +70,17 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
 
+  redis:
+    image: redis:4-alpine
+    command:
+    - sh
+    - -c # this is to evaluate the $REDIS_PASSWORD from the env
+    - redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} ## $$ because of docker-compose
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    volumes:
+    - netbox-redis-data:/data
+
 volumes:
   netbox-nginx-config:
     driver: local
@@ -76,6 +89,8 @@ volumes:
   netbox-media-files:
     driver: rancher-nfs
   netbox-report-files:
+    driver: rancher-nfs
+  netbox-redis-data:
     driver: rancher-nfs
   database:
     driver: rancher-nfs
