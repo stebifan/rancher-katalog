@@ -3,7 +3,7 @@ version: '2'
 services:
 
   netbox:
-    image: ninech/netbox:2.5.2
+    image: ninech/netbox:v2.5.2
     volumes:
       - netbox:/usr/src/netbox
     depends_on:
