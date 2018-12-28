@@ -70,7 +70,7 @@ services:
 
 volumes:
   netbox-nginx-config:
-    driver: rancher-nfs
+    driver: local
   netbox-static-files:
     driver: rancher-nfs
   netbox-media-files:
