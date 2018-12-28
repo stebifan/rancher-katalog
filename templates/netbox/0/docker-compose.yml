@@ -3,19 +3,35 @@ version: '2'
 services:
 
   netbox:
-    build: https://github.com/stebifan/docker-netbox.git
+    image: ninech/netbox:2.5.2
     volumes:
       - netbox:/usr/src/netbox
     depends_on:
       - db
     environment:
-      DB_HOST: db
       DB_NAME: netbox
       DB_USER: netbox
-      DB_PASS: ${DATABASE_PASSWORD}
-      SECRET_KEY: 615916726553723046906469739172691887764906576950226158101409
-    links:
-    - db:db
+      DB_PASSWORD: ${DATABASE_PASSWORD}
+      DB_HOST: db
+      EMAIL_SERVER: localhost
+      EMAIL_PORT: 25
+      EMAIL_USERNAME: netbox
+      EMAIL_PASSWORD: fkweropftj9034
+      EMAIL_TIMEOUT: 5
+      EMAIL_FROM: netbox@bar.com
+      MEDIA_ROOT: /opt/netbox/netbox/media
+      NAPALM_USERNAME:
+      NAPALM_PASSWORD:
+      NAPALM_TIMEOUT: 10
+      MAX_PAGE_SIZE: 0
+      REDIS_HOST: 
+      REDIS_PASSWORD: 
+      SECRET_KEY: r8OwDznj!!dci#P9ghmRfdu1Ysxm0AiPeDCQhKE+N_rClfWNj
+      SUPERUSER_NAME: admin
+      SUPERUSER_EMAIL: admin@example.com
+      SUPERUSER_PASSWORD=: admin
+      SUPERUSER_API_TOKEN: 0123456789abcdef0123456789abcdef01234567
+      WEBHOOKS_ENABLED: false
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
@@ -30,6 +46,7 @@ services:
     environment:
       POSTGRES_USER: netbox
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: netbox
     volumes:
       - database:/var/lib/postgres/
     labels:
@@ -40,4 +57,6 @@ volumes:
   netbox:
     driver: rancher-nfs
   database:
+    driver: rancher-nfs
+  redis:
     driver: rancher-nfs
