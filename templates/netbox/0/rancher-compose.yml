@@ -3,7 +3,7 @@ version: '2'
 catalog:
 
   name: netbox
-  version: 2.4.5
+  version: 2.5.2
   description: Netbox
   questions:
     - variable: DATABASE_PASSWORD
@@ -11,7 +11,7 @@ catalog:
       required: true
       type: password
     - variable: DOMAIN
-      default: your-domain.de
+      default: tst3.hoffmann-hosting.de
       label: Domain
       required: true
       type: string
@@ -23,5 +23,9 @@ services:
     start_on_create: true
 
   db:
+    scale: 1
+    start_on_create: true
+
+  nginx:
     scale: 1
     start_on_create: true
