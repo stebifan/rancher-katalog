@@ -5,7 +5,10 @@ services:
   netbox:
     image: ninech/netbox:v2.5.2
     volumes:
-      - netbox:/usr/src/netbox
+      - netbox-nginx-config:/etc/netbox-nginx/
+      - netbox-static-files:/opt/netbox/netbox/static
+      - netbox-media-files:/opt/netbox/netbox/media
+      - netbox-report-files:/etc/netbox/reports:ro
     depends_on:
       - db
     environment:
@@ -41,6 +44,15 @@ services:
     logging:
       driver: json-file
 
+  nginx:
+    command: nginx -c /etc/netbox-nginx/nginx.conf
+    image: nginx:1.15-alpine
+    depends_on:
+      - netbox
+    volumes:
+      - netbox-static-files:/opt/netbox/netbox/static:ro
+      - netbox-nginx-config:/etc/netbox-nginx/:ro
+
   db:
     image: postgres:9.5
     environment:
@@ -54,7 +66,13 @@ services:
       io.rancher.container.pull_image: always
 
 volumes:
-  netbox:
+  netbox-nginx-config:
+    driver: rancher-nfs
+  netbox-static-files:
+    driver: rancher-nfs
+  netbox-media-files:
+    driver: rancher-nfs
+  netbox-report-files:
     driver: rancher-nfs
   database:
     driver: rancher-nfs
