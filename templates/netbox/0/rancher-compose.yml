@@ -15,6 +15,13 @@ catalog:
       label: Domain
       required: true
       type: string
+    - variable: LOGIN_REQUIRED
+      label: LOGIN REQUIRED
+      description: -
+      type: enum
+      options: # List of options if using type of `enum`
+        - true
+        - false
 
 services:
 
