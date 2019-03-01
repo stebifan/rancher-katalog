@@ -3,7 +3,7 @@ version: '2'
 services:
 
   nextcloud:
-    image: nextcloud:15.0.4-fpm
+    image: nextcloud:15.0.5-fpm
     volumes:
       - nextcloud:/var/www/html
     depends_on:
@@ -34,7 +34,7 @@ services:
       - nextcloud
     restart: always
     environment:
-      NEXTCLOUD_VERSION: 15.0.0-fpm
+      NEXTCLOUD_VERSION: 15.0.5-fpm
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
