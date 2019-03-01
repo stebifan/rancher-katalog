@@ -28,6 +28,10 @@ services:
     image: hoffmannhosting/docker-nextcloud-whmcs
     volumes:
       - nextcloud:/var/www/html
+    labels:
+      io.rancher.container.start_once: true
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
     depends_on:
       - nextcloud
 
