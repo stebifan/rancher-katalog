@@ -34,6 +34,8 @@ services:
       io.rancher.container.pull_image: always
     depends_on:
       - nextcloud
+    logging:
+      driver: json
 
   web:
     image: hoffmannhosting/nc-hoffmann-hosting-nginx
