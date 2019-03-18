@@ -3,7 +3,7 @@ version: '2'
 services:
 
   seafile:
-    image: seafileltd/seafile:6.3.2
+    image: seafileltd/seafile:6.3.4
     volumes:
       - seafile-data:/shared
     environment:
