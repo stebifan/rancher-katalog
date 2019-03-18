@@ -7,7 +7,7 @@ catalog:
   description: Seafile - Enterprise File Sync and Share
   questions:
     - variable: ADMIN_PASSWORD
-      label: Nextcloud Admin Password
+      label: Seafile Admin Password
       required: true
       type: password
     - variable: ADMIN_EMAIL
