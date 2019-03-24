@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+
+  grafana:
+    image: grafana/grafana
+    environment:
+      GF_SERVER_ROOT_URL: https://${GRAFANA_DOMAIN}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+    volumes:
+    - grafana:/var/lib/grafana
+    - grafana-config:/etc/grafana
+    links:
+    - prometheus:prometheus
+    labels:
+      io.rancher.container.pull_image: always
+      rap.host: ${GRAFANA_DOMAIN}
+      rap.le_host: ${GRAFANA_DOMAIN}
+      rap.le_email: ${EMAIL}
+      rap.port: 3000
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - prometheus:/prometheus-data
+    labels:
+      io.rancher.container.hostname_override: container_name
+      rap.host: ${PROM_DOMAIN}
+      rap.le_host: ${PROM_DOMAIN}
+      rap.port: 9090
+
+volumes:
+  prometheus:
+    driver: rancher-nfs
+  grafana:
+    driver: rancher-nfs
+  grafana-config:
+    driver: rancher-nfs
