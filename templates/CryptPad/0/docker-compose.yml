@@ -3,7 +3,7 @@ version: '2'
 services:
 
   cryptpad:
-    build: https://github.com/xwiki-labs/cryptpad#2.21.0
+    build: https://github.com/xwiki-labs/cryptpad.git#2.21.0
     volumes:
       - cryptpad-files:/cryptpad/datastore
       - cryptpad-customize:/cryptpad/customize
