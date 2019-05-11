@@ -1,0 +1,35 @@
+version: '2'
+
+catalog:
+
+  name: nextcloud
+  version: 15.0.7
+  description: Nextcloud - Enterprise File Sync and Share
+  questions:
+    - variable: DB_PASSWORD
+      label: Database password
+      required: true
+      type: password
+    - variable: NEXTCLOUD_ADMIN_PASSWORD
+      label: Nextcloud Admin Password
+      required: true
+      type: password
+    - variable: DOMAIN
+      default: your-domain.de
+      label: Domain
+      required: true
+      type: string
+
+services:
+
+  nextcloud:
+    scale: 1
+    start_on_create: true
+
+  db:
+    scale: 1
+    start_on_create: true
+
+  web:
+    scale: 1
+    start_on_create: true
