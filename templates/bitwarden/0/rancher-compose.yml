@@ -1,0 +1,19 @@
+version: '2'
+
+catalog:
+
+  name: bitwarden
+  version: 1.9.1
+  description: Password Safe
+  questions:
+    - variable: DOMAIN
+      default: your-domain.de
+      label: Domain
+      required: true
+      type: string
+
+services:
+
+  bitwarden:
+    scale: 1
+    start_on_create: true
