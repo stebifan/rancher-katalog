@@ -9,8 +9,6 @@ services:
     environment:
       SIGNUPS_ALLOWED: "false" # set to true to enable signups (possible after restart)
 
-    links:
-      - mongodb:db
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
