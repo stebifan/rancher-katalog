@@ -8,7 +8,6 @@ services:
       - bitwarden-data:/data
     environment:
       SIGNUPS_ALLOWED: "false" # set to true to enable signups (possible after restart)
-
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
