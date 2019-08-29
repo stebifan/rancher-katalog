@@ -1,0 +1,46 @@
+version: '2'
+
+services:
+
+  cryptpad:
+    build: https://github.com/xwiki-labs/cryptpad.git#2.21.0
+    volumes:
+      - cryptpad-files:/cryptpad/datastore
+      - cryptpad-customize:/cryptpad/customize
+      - cryptpad-pins:/cryptpad/pins
+      - cryptpad-blob:/cryptpad/blob
+      - cryptpad-blobstage:/cryptpad/blobstage
+      - cryptpad-tasks:/cryptpad/tasks
+      - cryptpad-block:/cryptpad/block
+      - cryptpad-config:/cryptpad/cfg
+    environment:
+      USE_SSL: false
+      STORAGE: './storage/file'
+      LOG_TO_STDOUT: true
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      traefik.enable: true
+      traefik.port: 3000
+      traefik.acme: true
+      traefik.frontend.rule: Host:${DOMAIN}
+    logging:
+      driver: none
+
+volumes:
+  cryptpad-files:
+    driver: rancher-nfs
+  cryptpad-customize:
+    driver: rancher-nfs
+  cryptpad-pins:
+    driver: rancher-nfs
+  cryptpad-blob:
+    driver: rancher-nfs
+  cryptpad-blobstage:
+    driver: rancher-nfs
+  cryptpad-tasks:
+    driver: rancher-nfs
+  cryptpad-block:
+    driver: rancher-nfs
+  cryptpad-config:
+    driver: rancher-nfs

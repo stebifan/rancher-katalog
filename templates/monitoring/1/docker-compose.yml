@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+
+  grafana:
+    image: grafana/grafana
+    environment:
+      GF_SERVER_ROOT_URL: https://${GRAFANA_DOMAIN}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+    volumes:
+    - grafana:/var/lib/grafana
+    links:
+    - prometheus:prometheus
+    labels:
+      io.rancher.container.pull_image: always
+      traefik.enable: true
+      traefik.port: 3000
+      traefik.acme: true
+      traefik.frontend.rule: Host:${GRAFANA_DOMAIN}
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - prometheus:/prometheus-data
+    labels:
+      io.rancher.container.hostname_override: container_name
+      traefik.enable: true
+      traefik.port: 9090
+      traefik.acme: true
+      traefik.frontend.rule: Host:${PROM_DOMAIN}
+
+volumes:
+  prometheus:
+    driver: rancher-nfs
+  grafana:
+    driver: rancher-nfs

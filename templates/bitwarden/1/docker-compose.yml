@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+
+  bitwarden:
+    image: bitwardenrs/server:1.9.1
+    volumes:
+      - bitwarden-data:/data
+    environment:
+      SIGNUPS_ALLOWED: "false" # set to true to enable signups (possible after restart)
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      traefik.enable: true
+      traefik.port: 80
+      traefik.acme: true
+      traefik.frontend.rule: Host:${DOMAIN}
+    logging:
+      driver: none
+
+volumes:
+  bitwarden-data:
+    driver: rancher-nfs

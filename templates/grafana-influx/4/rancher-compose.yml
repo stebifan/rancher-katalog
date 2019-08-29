@@ -1,0 +1,39 @@
+version: '2'
+
+catalog:
+
+  name: Grafana + Influxdb
+  version: 1.3
+  description: Grafana Server
+  questions:
+    - variable: DOMAIN
+      default: your-domain.de
+      label: Domain
+      required: true
+      type: string
+    - variable: GRAFANA_PASSWORD
+      label: Grafana Password
+      required: true
+      type: password
+    - variable: INFLUXDB_PASSWORD
+      label: Influxdb Password
+      required: true
+      type: password
+
+services:
+  grafana:
+    scale: 1
+    start_on_create: true
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 3000
+      unhealthy_threshold: 10
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: recreate
+      reinitializing_timeout: 60000
+
+  influxdb:
+    scale: 1
+    start_on_create: true

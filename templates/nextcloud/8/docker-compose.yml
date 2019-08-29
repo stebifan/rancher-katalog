@@ -1,0 +1,63 @@
+version: '2'
+
+services:
+
+  nextcloud:
+    image: nextcloud:16.0.3-fpm
+    volumes:
+      - nextcloud:/var/www/html
+    depends_on:
+      - db
+    environment:
+      MYSQL_USER: nextcloud
+      MYSQL_DATABASE: nextcloud
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_HOST: db
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
+      NEXTCLOUD_TRUSTED_DOMAINS: ${DOMAIN}
+    links:
+    - db:db
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    logging:
+      driver: none
+
+  web:
+    image: hoffmannhosting/nc-hoffmann-hosting-nginx
+    links:
+      - nextcloud:app
+    volumes:
+      - nextcloud:/var/www/html:ro
+    depends_on:
+      - nextcloud
+    restart: always
+    environment:
+      NEXTCLOUD_VERSION: 16.0.3-fpm
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      traefik.enable: true
+      traefik.port: 80
+      traefik.acme: true
+      traefik.frontend.rule: Host:${DOMAIN}
+
+  db:
+    image: mariadb:10
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+
+volumes:
+  nextcloud:
+    driver: rancher-nfs
+  db:
+    driver: rancher-nfs

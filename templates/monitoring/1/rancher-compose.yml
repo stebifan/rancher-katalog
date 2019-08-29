@@ -1,0 +1,32 @@
+version: '2'
+
+catalog:
+
+  name: Monitoring
+  version: 1
+  description: Prometheus und Grafana
+  questions:
+    - variable: GRAFANA_DOMAIN
+      default: grafana.hoffmann-hosting.de
+      label: Grafana Domain
+      required: true
+      type: string
+    - variable: PROM_DOMAIN
+      default: prometheus.hoffmann-hosting.de
+      label: prometheus Domain
+      required: true
+      type: string
+    - variable: GRAFANA_PASSWORD
+      label: Grafana Password
+      required: true
+      type: password
+      
+services:
+
+  grafana:
+    scale: 1
+    start_on_create: true
+
+  prometheus:
+    scale: 1
+    start_on_create: true

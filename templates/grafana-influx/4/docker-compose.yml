@@ -1,0 +1,42 @@
+version: '2'
+volumes:
+  grafana:
+    driver: rancher-nfs
+  influxdb:
+    driver: rancher-nfs
+services:
+  grafana:
+    image: grafana/grafana
+    environment:
+      GF_SERVER_ROOT_URL: https://${DOMAIN}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+    volumes:
+    - grafana:/var/lib/grafana
+    links:
+    - influxdb:influxdb
+    labels:
+      io.rancher.container.pull_image: always
+      grafana: yes
+      traefik.enable: true
+      traefik.port: 3000
+      traefik.acme: true
+      traefik.frontend.rule: Host:${DOMAIN}
+    logging:
+      driver: json-file
+
+  influxdb:
+    image: tutum/influxdb
+    volumes:
+      - influxdb:/data
+    environment:
+      PRE_CREATE_DB: fhem   
+      ADMIN_USER: admin   
+      INFLUXDB_INIT_PWD: ${INFLUXDB_PASSWORD}
+    ports:
+      - 8083:8083
+      - 8086:8086
+      - 8090:8090
+      - 8099:8099
+    labels:
+      io.rancher.container.hostname_override: container_name
+      
