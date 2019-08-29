@@ -3,7 +3,7 @@ version: '2'
 catalog:
 
   name: netbox
-  version: 2.5.2
+  version: 2.5.2-1
   description: Netbox
   questions:
     - variable: DATABASE_PASSWORD

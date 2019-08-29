@@ -3,7 +3,7 @@ version: '2'
 catalog:
 
   name: seafile
-  version: 6.3.4
+  version: 6.3.4-1
   description: Seafile - Enterprise File Sync and Share
   questions:
     - variable: ADMIN_PASSWORD

@@ -24,6 +24,9 @@ services:
       traefik.port: 3000
       traefik.acme: true
       traefik.frontend.rule: Host:${DOMAIN}
+      rap.host: ${DOMAIN}
+      rap.le_host: ${DOMAIN}
+      rap.port: 3000
     logging:
       driver: none
 

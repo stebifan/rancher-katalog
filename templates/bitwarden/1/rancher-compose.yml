@@ -3,7 +3,7 @@ version: '2'
 catalog:
 
   name: bitwarden
-  version: 1.9.1
+  version: 1.9.1-1
   description: Password Safe
   questions:
     - variable: DOMAIN

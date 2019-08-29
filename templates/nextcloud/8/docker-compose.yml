@@ -42,6 +42,9 @@ services:
       traefik.port: 80
       traefik.acme: true
       traefik.frontend.rule: Host:${DOMAIN}
+      rap.host: ${DOMAIN}
+      rap.le_host: ${DOMAIN}
+      rap.port: 80
 
   db:
     image: mariadb:10
