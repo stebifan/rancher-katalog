@@ -3,7 +3,7 @@ version: '2'
 services:
 
   nextcloud:
-    image: nextcloud:15.0.5-fpm
+    image: nextcloud:16.0.4-fpm
     volumes:
       - nextcloud:/var/www/html
     depends_on:
@@ -21,21 +21,8 @@ services:
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
-      io.rancher.sidekicks: nextcloud-whmcs
     logging:
       driver: none
-  nextcloud-whmcs:
-    image: hoffmannhosting/docker-nextcloud-whmcs
-    volumes:
-      - nextcloud:/var/www/html
-    labels:
-      io.rancher.container.start_once: true
-      io.rancher.container.hostname_override: container_name
-      io.rancher.container.pull_image: always
-    depends_on:
-      - nextcloud
-    logging:
-      driver: json
 
   web:
     image: hoffmannhosting/nc-hoffmann-hosting-nginx
@@ -47,12 +34,14 @@ services:
       - nextcloud
     restart: always
     environment:
-      NEXTCLOUD_VERSION: 15.0.5-fpm
+      NEXTCLOUD_VERSION: 16.0.4-fpm
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
-      rap.host: ${DOMAIN}
-      rap.le_host: ${DOMAIN}
+      traefik.enable: true
+      traefik.port: 80
+      traefik.acme: true
+      traefik.frontend.rule: Host:${DOMAIN}
 
   db:
     image: mariadb:10

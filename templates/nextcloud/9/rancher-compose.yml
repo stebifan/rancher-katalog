@@ -3,7 +3,7 @@ version: '2'
 catalog:
 
   name: nextcloud
-  version: 15.0.5
+  version: 16.0.4
   description: Nextcloud - Enterprise File Sync and Share
   questions:
     - variable: DB_PASSWORD
@@ -31,9 +31,5 @@ services:
     start_on_create: true
 
   web:
-    scale: 1
-    start_on_create: true
-
-  nextcloud-whmcs:
     scale: 1
     start_on_create: true
