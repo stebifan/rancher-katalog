@@ -61,7 +61,7 @@ services:
       io.rancher.container.pull_image: always
   
   nextcloud-updater:
-    image: nextcloud:16.0.4-fpm
+    image: hoffmannhosting/nc-updater
     volumes:
       - nextcloud:/var/www/html
     depends_on:
