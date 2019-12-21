@@ -1,0 +1,71 @@
+version: '2'
+
+catalog:
+
+  name: meshviewer
+  version: 1-1
+  description: Meshviewer - a Freifunk Visualisation
+  questions:
+    - variable: DOMAIN
+      default: map.freifunk-troisdorf.de
+      label: Domain
+      required: true
+      type: string
+    - variable: GRAFANA_DOMAIN
+      default: statistik.freifunk-troisdorf.de
+      label: Grafana Domain
+      required: true
+      type: string
+    - variable: GRAFANA_PASSWORD
+      label: Grafana Password
+      required: true
+      type: password
+    - variable: INFLUXDB_PASSWORD
+      label: Influxdb Password
+      required: true
+      type: password
+    - variable: INFLUX_8083
+      default: 8083
+      label: Influx Port 8083
+      required: true
+      type: string
+    - variable: INFLUX_8086
+      default: 8086
+      label: Influx Port 8086
+      required: true
+      type: string
+    - variable: EMAIL
+      default: s.hoffmann@hoffmann-hosting.de
+      label: E-Mail
+      required: true
+      type: string
+      
+services:
+
+  meshviewer:
+    scale: 1
+    start_on_create: true
+
+  nginx:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 80
+        hostname: ${DOMAIN}
+
+  grafana:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+      - target_port: 3000
+        hostname: ${GRAFANA_DOMAIN}
+
+  influxdb:
+    scale: 1
+    start_on_create: true
+
+  fetch-json:
+    scale: 1
+    start_on_create: true
