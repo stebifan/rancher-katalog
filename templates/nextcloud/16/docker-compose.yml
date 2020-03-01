@@ -1,0 +1,91 @@
+version: '2'
+
+services:
+
+  nextcloud:
+    image: nextcloud:18.0.1-fpm
+    volumes:
+      - nextcloud:/var/www/html
+    depends_on:
+      - db
+    environment:
+      MYSQL_USER: nextcloud
+      MYSQL_DATABASE: nextcloud
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_HOST: db
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
+      NEXTCLOUD_TRUSTED_DOMAINS: ${DOMAIN}
+    links:
+    - db:db
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    logging:
+      driver: none
+
+  web:
+    image: hoffmannhosting/nc-hoffmann-hosting-nginx
+    links:
+      - nextcloud:app
+    volumes:
+      - nextcloud:/var/www/html:ro
+    depends_on:
+      - nextcloud
+    restart: always
+    environment:
+      NEXTCLOUD_VERSION: 18.0.1-fpm
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      traefik.enable: true
+      traefik.port: 80
+      traefik.acme: true
+      traefik.frontend.rule: Host:${DOMAIN}
+      traefik.frontend.redirect.permanent: true
+      traefik.frontend.headers.customResponseHeaders: Referrer-Policy:no-referrer || Strict-Transport-Security:15552000
+      traefik.frontend.redirect.replacement: https://$$1/remote.php/dav/
+      traefik.frontend.redirect.regex: https://(.*)/.well-known/(card|cal)dav
+
+  db:
+    image: mariadb:10
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  
+  nextcloud-updater:
+    image: hoffmannhosting/nc-updater
+    volumes:
+      - nextcloud:/var/www/html
+    depends_on:
+      - db
+    environment:
+      MYSQL_USER: nextcloud
+      MYSQL_DATABASE: nextcloud
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_HOST: db
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
+      NEXTCLOUD_TRUSTED_DOMAINS: ${DOMAIN}
+      NEXTCLOUD_VERSION: 18.0.1-fpm
+    links:
+    - db:db
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      io.rancher.container.start_once: true
+    logging:
+      driver: json-file
+
+volumes:
+  nextcloud:
+    driver: rancher-nfs
+  db:
+    driver: rancher-nfs
